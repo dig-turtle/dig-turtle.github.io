@@ -1,5 +1,16 @@
 ---
 import '../styles/global.css';
+
+const featuredApps = [
+	{
+		name: "Clash of Cards: War",
+		description: "Can you win the war? A new twist on the classic card game of war!",
+		android: "https://play.google.com/store/apps/details?id=io.bwvolleyball.cards.war",
+		ios: "coming-soon",
+		image: "/images/dig-turtle.png"
+	},
+	// Add more apps here as they become available
+];
 ---
 
 <!DOCTYPE html>
@@ -7,46 +18,60 @@ import '../styles/global.css';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<title>Doorz - The Ultimate Door Challenge</title>
-		<meta name="description" content="Take on the Doorz Challenge - a mind-bending puzzle game where every choice matters. Can you unlock all 10 levels?" />
+		<title>Dig Turtle - Fun Mobile Games</title>
+		<meta name="description" content="Dig Turtle and Filicode - Creating engaging mobile games for everyone" />
 		<!-- Social Media Icons -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 	</head>
 	<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
 		<main class="max-w-4xl mx-auto text-center">
 			<h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-				Every Door is a Choice
+				Dig Turtle & Filicode
 			</h1>
 			
 			<p class="text-2xl mb-8 text-gray-300">
-				10 levels. Infinite possibilities. One chance to make the right choice.
+				Fun mobile games for everyone
 			</p>
 
 			<div class="space-y-8">
 				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-3xl font-bold mb-4">Start Your Journey</h2>
-					<p class="text-xl text-gray-300 mb-6">
-						Join thousands of players worldwide
-					</p>
-					
-					<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-						<a href="https://play.google.com/store/apps/details?id=io.bwvolleyball.doorz" class="transform hover:scale-105 transition-transform">
-							<img 
-								src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
-								alt="Get it on Google Play" 
-								class="h-16"
-							/>
-						</a>
-						<div class="relative group">
-							<img 
-								src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
-								alt="Download on the App Store" 
-								class="h-12 opacity-50"
-							/>
-							<span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-700 px-3 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-								Coming Soon!
-							</span>
-						</div>
+					<h2 class="text-3xl font-bold mb-4">Featured Apps</h2>
+					<div class="grid gap-6">
+						{featuredApps.map(app => (
+							<div class="bg-gray-700 p-6 rounded-lg">
+								<h3 class="text-2xl font-bold mb-2">{app.name}</h3>
+								<p class="text-gray-300 mb-4">{app.description}</p>
+								<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+									<a href={app.android} class="transform hover:scale-105 transition-transform">
+										<img 
+											src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+											alt="Get it on Google Play" 
+											class="h-16"
+										/>
+									</a>
+									{app.ios === "coming-soon" ? (
+										<div class="relative group">
+											<img 
+												src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
+												alt="Download on the App Store" 
+												class="h-12 opacity-50"
+											/>
+											<span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-700 px-3 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+												Coming Soon!
+											</span>
+										</div>
+									) : (
+										<a href={app.ios} class="transform hover:scale-105 transition-transform">
+											<img 
+												src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
+												alt="Download on the App Store" 
+												class="h-12"
+											/>
+										</a>
+									)}
+								</div>
+							</div>
+						))}
 					</div>
 				</div>
 
@@ -58,14 +83,14 @@ import '../styles/global.css';
 						<a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-instagram"></i></a>
 					</div>
 					<p class="text-lg">
-						Share your victories, strategies, and join the #DoorzChallenge
+						Follow us for updates and new game announcements
 					</p>
 				</div>
 			</div>
 		</main>
 
 		<footer class="mt-16 text-gray-400 text-sm">
-			<p>© 2025 Doorz. All rights reserved. | <a href="/about-doorz/privacy-policy" class="hover:text-purple-400">Privacy Policy</a> | <a href="/about-doorz/terms-of-service" class="hover:text-purple-400">Terms of Service</a> | <a href="/about-doorz/attributions" class="hover:text-purple-400">Attributions</a></p>
+			<p>© 2025 Dig Turtle & Filicode. All rights reserved. | <a href="/privacy-policy" class="hover:text-purple-400">Privacy Policy</a> | <a href="/terms-of-service" class="hover:text-purple-400">Terms of Service</a></p>
 		</footer>
 	</body>
 </html>
