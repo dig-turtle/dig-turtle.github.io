@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.bwvolleyball.lodestra",
+    "sha256_cert_fingerprints": [
+      "D8:BD:F7:D1:06:F7:EB:5B:D2:50:7B:23:92:F9:83:3F:D4:E3:E0:DF:25:1D:B5:E2:0F:42:AA:28:83:6B:6C:E3"
+    ]
+  }
+}]

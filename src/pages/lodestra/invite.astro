@@ -1,0 +1,79 @@
+---
+import '../../styles/global.css';
+
+// Lodestra opens this URL directly when it's installed (Android App Links, verified by
+// /.well-known/assetlinks.json). This page is only the fallback for everyone else.
+const playUrl = 'https://play.google.com/store/apps/details?id=io.bwvolleyball.lodestra';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="robots" content="noindex" />
+		<title>Trip invite - Lodestra</title>
+	</head>
+	<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
+		<main class="max-w-2xl mx-auto text-center">
+			<h1 id="headline" class="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
+				You've been invited to a trip
+			</h1>
+
+			<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
+				<p id="detail" class="text-gray-300 mb-4">
+					Someone shared a trip with you in Lodestra, a trip organizer for Android.
+				</p>
+				<p class="text-gray-400 mb-6">Install Lodestra, then tap the invite link again to open the trip.</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+					<a id="play" href={playUrl} class="transform hover:scale-105 transition-transform">
+						<img
+							src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+							alt="Get it on Google Play"
+							class="h-16"
+						/>
+					</a>
+					<a id="open" href="#" hidden class="bg-purple-500 hover:bg-purple-400 text-white font-bold px-6 py-3 rounded-full">
+						Open in Lodestra
+					</a>
+				</div>
+			</div>
+		</main>
+
+		<footer class="mt-16 text-gray-400 text-sm">
+			<p><a href="/lodestra" class="hover:text-purple-400">About Lodestra</a> | <a href="/lodestra/privacy-policy" class="hover:text-purple-400">Privacy Policy</a></p>
+		</footer>
+
+		<script is:inline define:vars={{ playUrl }}>
+			// The invite details live in the #fragment, which browsers never send to the server.
+			// They come from the link itself, so they're untrusted and only ever set as textContent.
+			(function () {
+				var raw = location.hash.slice(1);
+				if (!raw) return;
+				var params = new URLSearchParams(raw);
+				var name = params.get('n');
+				var by = params.get('by');
+				var role = { writer: 'an editor', reader: 'a viewer' }[params.get('r')];
+				if (name) {
+					document.getElementById('headline').textContent =
+						by ? by + ' shared “' + name + '” with you' : 'You\'ve been invited to “' + name + '”';
+					document.title = name + ' - Lodestra invite';
+				}
+				if (role) {
+					document.getElementById('detail').textContent =
+						'You\'ve been added as ' + role + '. Open the trip in Lodestra, a trip organizer for Android.';
+				}
+				// Play passes the referrer to the app after install (Play Install Referrer API).
+				var invite = location.origin + location.pathname.replace(/\/$/, '') + '#' + raw;
+				var play = playUrl + '&referrer=' + encodeURIComponent(invite);
+				document.getElementById('play').href = play;
+				if (/Android/i.test(navigator.userAgent)) {
+					var open = document.getElementById('open');
+					// An intent:// URL's own #fragment holds the Intent syntax, so the invite rides in the query here.
+					open.href = 'intent://' + location.host + location.pathname.replace(/\/$/, '') + '?' + raw + '#Intent;scheme=https;package=io.bwvolleyball.lodestra;S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
+					open.hidden = false;
+				}
+			})();
+		</script>
+	</body>
+</html>
