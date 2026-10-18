@@ -1,0 +1,57 @@
+---
+import type { App } from '../data/apps';
+import StoreBadge from './StoreBadge.astro';
+
+interface Props {
+  app: App;
+}
+
+const { app } = Astro.props;
+
+// The neon state lights on hover (hover-capable devices only), keyboard focus (:focus-visible) inside the
+// row, and tap (:active). Pressing applies it instantly; the fade runs only on release.
+---
+
+<li
+  data-app={app.name}
+  class="group flex flex-col gap-4 px-4 py-4 transition-colors duration-150 hover:bg-accent-from/6 has-[:focus-visible]:bg-accent-from/6 active:bg-accent-from/6 active:transition-none md:flex-row md:items-center md:gap-5"
+>
+  <div class="flex min-w-0 flex-1 items-center gap-4">
+    <div
+      aria-hidden="true"
+      class="grid size-12 shrink-0 place-items-center overflow-hidden rounded-md border border-hairline bg-surface-card text-lg font-semibold text-mute transition duration-150 group-hover:border-transparent group-hover:bg-linear-135 group-hover:from-accent-from group-hover:to-accent-to group-hover:text-on-primary group-hover:shadow-[0_0_14px_color-mix(in_srgb,var(--color-accent-from)_50%,transparent)] group-has-[:focus-visible]:border-transparent group-has-[:focus-visible]:bg-linear-135 group-has-[:focus-visible]:from-accent-from group-has-[:focus-visible]:to-accent-to group-has-[:focus-visible]:text-on-primary group-has-[:focus-visible]:shadow-[0_0_14px_color-mix(in_srgb,var(--color-accent-from)_50%,transparent)] group-active:border-transparent group-active:bg-linear-135 group-active:from-accent-from group-active:to-accent-to group-active:text-on-primary group-active:shadow-[0_0_14px_color-mix(in_srgb,var(--color-accent-from)_50%,transparent)] group-active:transition-none"
+    >
+      {app.icon ? <img src={app.icon} alt="" class="size-full object-cover" /> : app.name.charAt(0)}
+    </div>
+
+    <div class="min-w-0">
+      <h3 class="text-lg leading-[1.4] font-medium tracking-[0.2px] text-ink">
+        {
+          app.page ? (
+            <a
+              href={app.page}
+              class="ring-accent -mx-1 rounded-xs px-1 underline decoration-ash decoration-1 underline-offset-4 transition-colors duration-150 hover:decoration-ink"
+            >
+              {app.name}
+            </a>
+          ) : (
+            app.name
+          )
+        }
+      </h3>
+      <p class="mt-0.5 text-sm leading-[1.6] text-mute">{app.description}</p>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3 md:shrink-0">
+    <span
+      aria-hidden="true"
+      class="hidden text-lg text-ash transition-colors duration-150 group-hover:text-accent-from group-has-[:focus-visible]:text-accent-from group-active:text-accent-from group-active:transition-none md:inline"
+      >→</span
+    >
+    <div class="flex flex-wrap items-start gap-3">
+      <StoreBadge store="android" link={app.stores.android} label={`Get ${app.name} on Google Play`} />
+      <StoreBadge store="ios" link={app.stores.ios} label={`Download ${app.name} on the App Store`} />
+    </div>
+  </div>
+</li>

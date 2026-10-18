@@ -1,37 +1,39 @@
 ---
-import '../../styles/global.css';
+import Layout from '../../layouts/Layout.astro';
+import StoreBadge from '../../components/StoreBadge.astro';
+import { apps } from '../../data/apps';
+
+const lodestra = apps.find((app) => app.name === 'Lodestra')!;
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-gray-900">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Lodestra - Trip Organizer</title>
-		<meta name="description" content="Lodestra is a trip organizer for Android. Plan your itinerary and share trips with the people you travel with." />
-	</head>
-	<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
-		<main class="max-w-4xl mx-auto text-center">
-			<a href="/" class="text-purple-400 hover:text-purple-300 mb-8 inline-block">← All apps</a>
+<Layout
+  title="Lodestra - Trip Organizer"
+  description="Lodestra is a trip organizer for Android. Plan your itinerary and share trips with the people you travel with."
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pt-12 pb-12 sm:px-6 md:pt-16 md:pb-16 lg:pt-24 lg:pb-24">
+    <p class="mb-4 font-mono text-xs leading-[1.5] tracking-[0.12em] text-mute uppercase">An app by Made With Pixels</p>
+    <h1 class="text-[2.5rem] leading-[1.17] font-medium tracking-[0.2px] text-ink sm:text-5xl lg:text-[3.5rem]">
+      Lodestra
+    </h1>
+    <p class="mt-3 text-lg leading-[1.6] text-mute">A trip organizer for Android</p>
 
-			<h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-				Lodestra
-			</h1>
-
-			<p class="text-2xl mb-8 text-gray-300">
-				A trip organizer for Android
-			</p>
-
-			<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-				<p class="text-gray-300 mb-4">
-					Keep flights, stays, reservations and plans for each trip in one timeline. Your trips are backed up to your own Google Drive, and you can share a trip with the people you're travelling with.
-				</p>
-				<p class="text-gray-400">Coming soon to Google Play.</p>
-			</div>
-		</main>
-
-		<footer class="mt-16 text-gray-400 text-sm">
-			<p>© 2026 Dig Turtle & Filicode. All rights reserved. | <a href="/lodestra/privacy-policy" class="hover:text-purple-400">Lodestra Privacy Policy</a></p>
-		</footer>
-	</body>
-</html>
+    <div class="mt-10 rounded-lg border border-hairline bg-surface p-6 sm:p-8">
+      <p class="text-base leading-[1.6] text-body">
+        Keep flights, stays, reservations and plans for each trip in one timeline. Your trips are backed up to your own
+        Google Drive, and you can share a trip with the people you're travelling with.
+      </p>
+      <p class="mt-4 text-sm leading-[1.6] text-mute">Coming soon to Google Play.</p>
+      <div class="mt-6 flex flex-wrap items-start gap-3">
+        <StoreBadge store="android" link={lodestra.stores.android} />
+        <StoreBadge store="ios" link={lodestra.stores.ios} />
+      </div>
+    </div>
+    <p class="mt-6 text-sm leading-[1.6]">
+      <a
+        href="/lodestra/privacy-policy"
+        class="ring-accent rounded-xs text-mute underline underline-offset-2 transition-colors duration-150 hover:text-ink"
+        >Lodestra privacy policy</a
+      >
+    </p>
+  </section>
+</Layout>
