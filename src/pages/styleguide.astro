@@ -1,0 +1,188 @@
+---
+import { readFileSync } from 'node:fs';
+import Layout from '../layouts/Layout.astro';
+import AppRow from '../components/AppRow.astro';
+import Button from '../components/Button.astro';
+import StoreBadge from '../components/StoreBadge.astro';
+import { apps } from '../data/apps';
+import type { App } from '../data/apps';
+
+// Single source of truth for hex values: the @theme block itself.
+const css = readFileSync(new URL('../styles/global.css', import.meta.url), 'utf8');
+const colors = [...css.matchAll(/--color-([a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,8})\s*;/g)].map((m) => ({
+  name: m[1],
+  hex: m[2].toLowerCase(),
+}));
+
+const live = apps[0];
+const soon = apps[3];
+
+const sampleIcon =
+  'data:image/svg+xml,' +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" fill="#1f6feb"/><circle cx="24" cy="24" r="12" fill="#ffd33d"/></svg>',
+  );
+const withIcon: App = { ...live, name: 'Sample With Icon', description: 'A row whose tile shows a real icon image.', icon: sampleIcon };
+const placeholder: App = { ...live, name: 'Sample Placeholder', description: 'A row without an icon shows the first letter.' };
+
+const type = [
+  ['display-xl', 'text-[64px] leading-[1.1] font-semibold', '64 / 600 / 1.1'],
+  ['display-lg', 'text-[56px] leading-[1.17] font-medium tracking-[0.2px]', '56 / 500 / 1.17'],
+  ['heading-xl', 'text-2xl leading-[1.6] font-medium', '24 / 500 / 1.6'],
+  ['heading-md', 'text-xl leading-[1.4] font-medium', '20 / 500 / 1.4'],
+  ['heading-sm', 'text-lg leading-[1.4] font-medium', '18 / 500 / 1.4'],
+  ['body-lg', 'text-lg leading-[1.6]', '18 / 400 / 1.6'],
+  ['body-md', 'text-base leading-[1.6]', '16 / 400 / 1.6'],
+  ['body-strong', 'text-base leading-[1.4] font-medium', '16 / 500 / 1.4'],
+  ['body-sm', 'text-sm leading-[1.6]', '14 / 400 / 1.6'],
+  ['caption-sm', 'text-xs leading-[1.5]', '12 / 400 / 1.5'],
+  ['button-md', 'text-sm leading-[1.6] font-medium', '14 / 500 / 1.6'],
+];
+
+const radii = [
+  ['xs', 'rounded-xs', '4px'],
+  ['sm', 'rounded-sm', '6px'],
+  ['md', 'rounded-md', '8px'],
+  ['lg', 'rounded-lg', '10px'],
+  ['xl', 'rounded-xl', '16px'],
+  ['full', 'rounded-full', '9999px'],
+];
+
+const spacing = [
+  ['1', 'w-1', '4px'],
+  ['2', 'w-2', '8px'],
+  ['3', 'w-3', '12px'],
+  ['4', 'w-4', '16px'],
+  ['6', 'w-6', '24px'],
+  ['8', 'w-8', '32px'],
+  ['12', 'w-12', '48px'],
+  ['24', 'w-24', '96px'],
+];
+---
+
+<Layout title="Styleguide · Made With Pixels" noindex>
+  <main class="mx-auto w-full max-w-3xl px-4 py-12 sm:py-16">
+    <p class="font-mono text-xs tracking-[1px] text-mute uppercase">Styleguide</p>
+    <h1 class="mt-3 text-4xl leading-[1.1] font-semibold text-ink">
+      Made With Pixels <span class="text-gradient-accent">design system</span>
+    </h1>
+    <p class="mt-4 text-base leading-[1.6] text-body">
+      A living reference for DESIGN.md. Everything below is rendered with the real components.
+    </p>
+
+    <section class="mt-16">
+      <h2 class="text-2xl leading-[1.6] font-medium text-ink">Colors</h2>
+      <ul class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {
+          colors.map((c) => (
+            <li class="overflow-hidden rounded-lg border border-hairline bg-surface">
+              <div class="h-14 border-b border-hairline" style={`background:${c.hex}`} />
+              <div class="p-3">
+                <p class="text-sm leading-[1.4] font-medium text-ink">{c.name}</p>
+                <p class="font-mono text-xs text-mute">{c.hex}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-2xl leading-[1.6] font-medium text-ink">Typography</h2>
+      <ul class="mt-4 divide-y divide-hairline rounded-lg border border-hairline bg-surface">
+        {
+          type.map(([name, cls, spec]) => (
+            <li class="px-4 py-3">
+              <p class="font-mono text-xs text-mute">
+                {name} · {spec}
+              </p>
+              <p class:list={[cls, 'mt-1 text-ink']}>Useful little apps</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-2xl leading-[1.6] font-medium text-ink">Radii and spacing</h2>
+      <ul class="mt-4 flex flex-wrap gap-4">
+        {
+          radii.map(([name, cls, px]) => (
+            <li class="text-center">
+              <div class:list={[cls, 'h-16 w-16 border border-ash bg-surface-card']} />
+              <p class="mt-2 text-xs text-mute">
+                {name} {px}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="mt-6 space-y-2">
+        {
+          spacing.map(([name, cls, px]) => (
+            <li class="flex items-center gap-3">
+              <div class:list={[cls, 'h-3 shrink-0 rounded-xs bg-body']} />
+              <span class="font-mono text-xs text-mute">
+                {name} · {px}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-2xl leading-[1.6] font-medium text-ink">Buttons</h2>
+      <div class="mt-4 flex flex-wrap items-center gap-3">
+        <Button href="#buttons">Primary</Button>
+        <Button href="#buttons" variant="secondary">Secondary</Button>
+      </div>
+      <p class="mt-3 text-sm leading-[1.6] text-mute">
+        Tab to either button to see the focus ring (<code class="font-mono">ring-accent</code>).
+      </p>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-2xl leading-[1.6] font-medium text-ink">App rows</h2>
+      <ul class="mt-4 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline bg-surface">
+        <AppRow app={live} />
+      </ul>
+      <p class="mt-3 text-sm leading-[1.6] text-mute">
+        Default state. Hover it, tab into it or tap it: all three light the row. It is never lit permanently.
+      </p>
+      <ul class="mt-6 divide-y divide-hairline overflow-hidden rounded-lg border border-hairline bg-surface">
+        <AppRow app={withIcon} />
+        <AppRow app={placeholder} />
+      </ul>
+      <p class="mt-3 text-sm leading-[1.6] text-mute">With a sample icon, and with the first-letter placeholder.</p>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-2xl leading-[1.6] font-medium text-ink">Store badges</h2>
+      <div class="mt-4 flex flex-wrap items-start gap-6">
+        <StoreBadge store="android" link={live.stores.android} />
+        <StoreBadge store="ios" link={soon.stores.ios} />
+      </div>
+      <p class="mt-3 text-sm leading-[1.6] text-mute">Live (a link) and coming soon (dimmed, labeled, not a link).</p>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-2xl leading-[1.6] font-medium text-ink">Accent override</h2>
+      <div
+        class="mt-4 rounded-lg border border-hairline bg-surface p-4"
+        style="--color-accent-from: #a3e635; --color-accent-to: #f59e0b"
+      >
+        <p class="text-2xl leading-[1.4] font-semibold text-ink">
+          Per-app <span class="text-gradient-accent">theming</span>
+        </p>
+        <ul class="mt-3 divide-y divide-hairline">
+          <AppRow app={placeholder} />
+        </ul>
+      </div>
+      <p class="mt-3 text-sm leading-[1.6] text-mute">
+        A wrapper sets <code class="font-mono">--color-accent-from</code> and
+        <code class="font-mono">--color-accent-to</code>; everything inside follows, nothing else changes.
+      </p>
+    </section>
+  </main>
+</Layout>
