@@ -295,7 +295,7 @@ Corners stay between 4 and 16px except for pills. In Tailwind: `rounded-xs` thro
 Components live in `src/components/` and `src/layouts/`. Reuse them; don't re-create their markup on a page.
 
 ### Layout
-The shared page shell. Header with the brand **"Made With Pixels"** in the accent gradient (`text-gradient-accent`, links home): the wordmark is a sanctioned always-on gradient, on every page. The two edge glows (`glow-from` top-right, `glow-to` bottom-left). Footer on a `{colors.hairline}` top rule reading exactly **"© 2026 Made With Pixels, LLC"**, with Privacy Policy and Terms of Service links; app pages may add their own links (e.g. Lodestra Privacy Policy).
+The shared page shell. Header with the brand **"Made With Pixels"** in the accent gradient (`text-gradient-accent`, links home): the wordmark is a sanctioned always-on gradient, on every page. The two edge glows (`glow-from` top-right, `glow-to` bottom-left). Footer on a `{colors.hairline}` top rule reading exactly **"© 2026 Made With Pixels, LLC"**, with Privacy Policy and Terms of Service links, identical on every page; app-specific links live in page content, not the footer.
 
 ### Button
 - **Primary:** white pill (`bg-primary text-on-primary rounded-full`), `{typography.button-md}`, ~40px tall. One per screen.

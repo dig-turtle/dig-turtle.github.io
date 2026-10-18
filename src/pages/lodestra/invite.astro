@@ -11,10 +11,6 @@ const playUrl = 'https://play.google.com/store/apps/details?id=io.bwvolleyball.l
 <Layout
   title="Trip invite - Lodestra"
   noindex
-  footerLinks={[
-    { href: '/lodestra', label: 'About Lodestra' },
-    { href: '/lodestra/privacy-policy', label: 'Lodestra Privacy Policy' },
-  ]}
 >
   <section class="mx-auto w-full max-w-3xl px-4 pt-12 pb-12 sm:px-6 md:pt-16 md:pb-16 lg:pt-24 lg:pb-24">
     <h1
@@ -35,6 +31,13 @@ const playUrl = 'https://play.google.com/store/apps/details?id=io.bwvolleyball.l
       </p>
       <p class="mt-4 text-sm leading-[1.6] text-mute">
         Install Lodestra, then tap the invite link again to open the trip.
+      </p>
+      <p class="mt-4 text-sm leading-[1.6]">
+        <a
+          href="/lodestra"
+          class="ring-accent rounded-xs text-mute underline underline-offset-2 transition-colors duration-150 hover:text-ink"
+          >What's Lodestra?</a
+        >
       </p>
       <div class="mt-6 flex flex-wrap items-center gap-3">
         <StoreBadge store="android" link={{ status: 'live', url: playUrl }} id="play" />

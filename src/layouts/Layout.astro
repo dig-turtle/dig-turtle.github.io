@@ -5,15 +5,13 @@ interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
-  footerLinks?: { href: string; label: string }[];
 }
 
-const { title, description, noindex = false, footerLinks = [] } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 
 const links = [
   { href: '/privacy-policy', label: 'Privacy Policy' },
   { href: '/terms-of-service', label: 'Terms of Service' },
-  ...footerLinks,
 ];
 ---
 

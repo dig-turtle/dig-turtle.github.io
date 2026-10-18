@@ -9,7 +9,6 @@ const lodestra = apps.find((app) => app.name === 'Lodestra')!;
 <Layout
   title="Lodestra - Trip Organizer"
   description="Lodestra is a trip organizer for Android. Plan your itinerary and share trips with the people you travel with."
-  footerLinks={[{ href: '/lodestra/privacy-policy', label: 'Lodestra Privacy Policy' }]}
 >
   <section class="mx-auto w-full max-w-3xl px-4 pt-12 pb-12 sm:px-6 md:pt-16 md:pb-16 lg:pt-24 lg:pb-24">
     <p class="mb-4 font-mono text-xs leading-[1.5] tracking-[0.12em] text-mute uppercase">An app by Made With Pixels</p>
@@ -29,5 +28,12 @@ const lodestra = apps.find((app) => app.name === 'Lodestra')!;
         <StoreBadge store="ios" link={lodestra.stores.ios} />
       </div>
     </div>
+    <p class="mt-6 text-sm leading-[1.6]">
+      <a
+        href="/lodestra/privacy-policy"
+        class="ring-accent rounded-xs text-mute underline underline-offset-2 transition-colors duration-150 hover:text-ink"
+        >Lodestra privacy policy</a
+      >
+    </p>
   </section>
 </Layout>

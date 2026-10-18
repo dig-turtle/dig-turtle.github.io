@@ -50,10 +50,17 @@ test('inline script intact', () => {
   assert.ok(html.includes('referrer='));
 });
 
-test('layout chrome and footer links', () => {
+test('layout chrome', () => {
   assert.ok(html.includes('© 2026 Made With Pixels, LLC'));
-  assert.match(html, /href="\/lodestra"/);
-  assert.match(html, /href="\/lodestra\/privacy-policy"/);
+});
+
+test('"What\'s Lodestra?" link sits inside the card and points at /lodestra', () => {
+  const card = html.match(/<div class="[^"]*rounded-lg[^"]*">[\s\S]*?<\/main>/)?.[0] ?? '';
+  const link = card.match(/<a\b[^>]*href="\/lodestra"[^>]*>\s*What(?:'|&#39;)s Lodestra\?\s*<\/a>/)?.[0];
+  assert.ok(link, 'no What\'s Lodestra? link in the card');
+  assert.match(link, /\bunderline\b/);
+  assert.match(link, /\bring-accent\b/);
+  assert.doesNotMatch(link, /text-gradient-accent/);
 });
 
 test('#play badge is not lazy-loaded (above the fold)', () => {

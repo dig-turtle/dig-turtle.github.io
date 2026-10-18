@@ -80,10 +80,24 @@ test('no styleguide link', () => {
   assert.ok(!html.includes('href="/styleguide"'));
 });
 
+test('headline: empire, with only "useful apps." in the gradient', () => {
+  const h1 = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1];
+  const grad = h1.match(/<span\b[^>]*text-gradient-accent[^>]*>([\s\S]*?)<\/span>/)?.[1];
+  assert.equal(grad?.trim(), 'useful apps.');
+  assert.equal(h1.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(), 'Building an empire of useful apps.');
+});
+
 test('lodestra page', () => {
   const page = readPage('/lodestra');
   assert.ok(page.includes('© 2026 Made With Pixels, LLC'));
-  assert.match(page, /href="\/lodestra\/privacy-policy"/);
+});
+
+test('lodestra page links its privacy policy in the content, below the badges', () => {
+  const main = readPage('/lodestra').match(/<main[\s\S]*?<\/main>/)[0];
+  const link = main.match(/<a\b[^>]*href="\/lodestra\/privacy-policy"[^>]*>\s*Lodestra privacy policy\s*<\/a>/)?.[0];
+  assert.ok(link, 'no in-content privacy link');
+  assert.match(link, /\bring-accent\b/);
+  assert.ok(main.indexOf(link) > main.lastIndexOf('data-coming-soon'), 'link is not below the badges');
 });
 
 test('row neon uses hover, keyboard focus and tap, not focus-within', () => {

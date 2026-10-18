@@ -31,7 +31,16 @@ test('entity named in body text and title', () => {
 });
 
 test('updated date', () => {
-  for (const route of LEGAL) assert.ok(readPage(route).includes('Last updated: October 2026'), route);
+  for (const route of LEGAL) assert.ok(readPage(route).includes('Last updated: 2026'), route);
+});
+
+test('privacy policy contact email is a mailto link', () => {
+  const html = readPage('/privacy-policy');
+  assert.match(
+    html,
+    /please contact us at <a\b[^>]*href="mailto:brillianceanimationstudios@gmail\.com"[^>]*>brillianceanimationstudios@gmail\.com<\/a>\./,
+  );
+  assert.doesNotMatch(html, /social media channels/);
 });
 
 test('header brand wears the gradient on every page', () => {
@@ -50,5 +59,14 @@ test('legal heading in the gradient; section h2s get the accent bar', () => {
     const h1 = html.match(/<h1\b[^>]*>/)?.[0] ?? '';
     assert.match(h1, /text-gradient-accent/, `${route} h1`);
     assert.ok(html.includes('[&_h2]:accent-bar'), `${route} h2 accent`);
+  }
+});
+
+test('footer links are identical on every page: privacy and terms only', () => {
+  for (const file of allPages()) {
+    const html = readFileSync(file, 'utf8');
+    const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0] ?? '';
+    const hrefs = [...footer.matchAll(/<a\b[^>]*href="([^"]*)"/g)].map((m) => m[1]);
+    assert.deepEqual(hrefs, ['/privacy-policy', '/terms-of-service'], file);
   }
 });
