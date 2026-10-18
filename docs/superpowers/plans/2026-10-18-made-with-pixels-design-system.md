@@ -18,7 +18,7 @@
 - Inter with `font-feature-settings: "calt","kern","liga","ss03"` on `body`.
 - Footer on every page reads exactly `© 2026 Made With Pixels, LLC`. Header brand reads `Made With Pixels`.
 - No page in `dist/` contains "Dig Turtle" or "Filicode".
-- Neon row state on hover, `:focus-within`, and `:active` (tap), never permanently. Hover is gated to hover-capable devices (Tailwind v4's `hover:` already does this).
+- Neon row state on hover, keyboard focus (`:focus-visible` inside the row; not `:focus-within`, per controller ruling), and `:active` (tap), never permanently. Hover is gated to hover-capable devices (Tailwind v4's `hover:` already does this).
 - Body text meets WCAG AA (≥ 4.5:1) on its surface. `ash` is decorative or ≥ 18px only.
 - Store badge artwork is the official images, unaltered (same URLs the site uses today). Coming-soon badges are not links and show a visible "Coming soon" label without hover.
 - Respect `prefers-reduced-motion: reduce` (no transitions or animation).
@@ -113,7 +113,7 @@
     export const apps: App[];
     ```
   - `StoreBadge.astro` props: `{ store: 'android' | 'ios'; link: StoreLink; id?: string }`. A live badge is `<a href={url}>` wrapping the official badge `<img>`. A coming-soon badge is a non-link `<span data-coming-soon>` with the dimmed badge and a visible "Coming soon" label. Badge images use the URLs in today's `index.astro`.
-  - `AppRow.astro` props: `{ app: App }`. Renders `<li data-app={app.name}>`. The name links to `app.page` when set. The icon tile shows `app.icon` if set, otherwise a placeholder built from the app's first letter. Badges sit at the right, or wrap below on narrow screens. The neon state uses `hover:`, `focus-within:` and `active:` (no transition on `active`).
+  - `AppRow.astro` props: `{ app: App }`. Renders `<li data-app={app.name}>`. The name links to `app.page` when set. The icon tile shows `app.icon` if set, otherwise a placeholder built from the app's first letter. Badges sit at the right, or wrap below on narrow screens. The neon state uses `hover:`, `has-[:focus-visible]:` (keyboard focus) and `active:` (no transition on `active`).
   - `Button.astro` props: `{ href: string; variant?: 'primary' | 'secondary'; id?: string; hidden?: boolean }`. `primary` is the white pill.
 
 - [ ] **Step 1: Write `tests/home.test.mjs`** (against `readPage('/')`):
