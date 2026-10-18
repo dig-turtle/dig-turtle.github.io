@@ -5,7 +5,7 @@ Site: apps.madewithpixels.xyz (this repo: Astro 5 + Tailwind v4, deployed to Git
 
 ## Intent
 
-The site is the public face of Made With Pixels LLC, the owner's newly formed company that publishes small, useful mobile apps (Skip The Paywall, EzCamel, Clash of Cards: War, Lodestra). People mostly arrive from a Play Store listing or a Lodestra trip-invite link.
+The site is the public face of Made With Pixels, LLC, the owner's newly formed company that publishes small, useful mobile apps (Skip The Paywall, EzCamel, Clash of Cards: War, Lodestra). People mostly arrive from a Play Store listing or a Lodestra trip-invite link.
 
 The owner wants visitors to come away thinking an **exciting young professional, hard at work building a mobile-app empire of useful tools**, made this. The aesthetic they're after is **cyberpunk / "digital empire."** The current purple→pink gradient was an attempt at that, but on stock Tailwind gray it reads as a generic template.
 
@@ -22,7 +22,7 @@ The approach: start from a public DESIGN.md that is close to what's wanted, then
 
 ## Non-goals
 
-- **Legal wording.** The body text of `/privacy-policy`, `/terms-of-service` and `/lodestra/privacy-policy` stays as written, including where it names "Dig Turtle & Filicode". Changing who the legal documents name is a separate legal decision the owner hasn't made. Only their presentation (layout, typography) changes. Their `<title>` and meta description also stay, since they mirror the document text.
+- **Legal substance.** The policies and terms say the same things they say today. The only wording change is the entity name (see Pages).
 - **Per-app brands.** App pages (e.g. `/lodestra`) wear the Made With Pixels neon for now. The owner may later derive per-app variants, so the accent must be easy to override (see Constraints), but no variants get built now.
 - Deployment, domain, `CNAME`, `public/app-ads.txt`, `public/.well-known/assetlinks.json`. Untouched.
 - New pages beyond `/styleguide`, a blog, analytics, socials.
@@ -44,7 +44,7 @@ Raycast's key values for reference: canvas `#07080a`, surface `#0d0d0d`, elevate
 - Accent pair: magenta `#ff2fd6` → cyan `#22d3ee`.
 - One gradient-text phrase in the hero headline.
 - Soft radial glows (magenta top-right, cyan bottom-left, around 18–28% opacity) bleeding in at the page edges.
-- App rows on hover and keyboard focus get a faint magenta wash, a gradient icon tile with a magenta glow, and a magenta arrow. This is **hover/focus only**: no row wears it permanently, and there is no `featured` flag. That's my call, to keep the neon to one always-on moment (the mockup showed it on the first row only to demonstrate the state).
+- App rows on hover, keyboard focus, **and tap/click** get a faint magenta wash, a gradient icon tile with a magenta glow, and a magenta arrow. Tap/click was the owner's addition, so phone visitors see the neon too: it should flash visibly on tap (`:active`) even when the tap navigates away. No row wears it permanently, and there is no `featured` flag. That's my call, to keep the neon to one always-on moment (the mockup showed it on the first row only to demonstrate the state).
 - Everything else stays dark and calm.
 
 **The empire feel.** Apps are shown as a **catalog list** (Raycast-store style). It has to look intentional with 4 apps and still work at 15. The mockup's "See all apps" pill is dropped, because there is no all-apps page.
@@ -60,7 +60,7 @@ Raycast's key values for reference: canvas `#07080a`, surface `#0d0d0d`, elevate
 
 An app with its own page (only Lodestra today) also links its name to that page. The row itself is not one big link, because it contains the badge links. The hover/focus treatment applies to the row as a whole.
 
-**Brand name:** "Made With Pixels" in the header/hero. Footer: "© 2026 Made With Pixels LLC". Shared footer links: Privacy Policy, Terms of Service. App pages may add their own links, e.g. Lodestra Privacy Policy.
+**Brand name:** "Made With Pixels" in the header/hero. Footer: "© 2026 Made With Pixels, LLC" (the legal entity name, comma included). Shared footer links: Privacy Policy, Terms of Service. App pages may add their own links, e.g. Lodestra Privacy Policy.
 
 ## Constraints
 
@@ -76,7 +76,7 @@ An app with its own page (only Lodestra today) also links its name to that page.
 | `/` | New hero (brand name, headline with one gradient phrase, short subline). Catalog list of apps. **Remove** the "Join the Community" box, the dead social links and the Font Awesome stylesheet. **Keep** the grayed-out App Store badges, because iOS is planned. **Add Lodestra** to the list (my call, approved by the owner), coming soon on both stores because it isn't on Google Play yet. Badge states are as in the App rows table. |
 | `/lodestra` | Moves onto the layout and components. Same copy. |
 | `/lodestra/invite` | Moves onto the layout. Its Play badge stays a live link even though Lodestra isn't listed yet: the script rewrites it with an install referrer, and the page is only reached by invitees. The inline script must keep working unchanged. It relies on element ids `headline`, `detail`, `play` and `open`, the `hidden` attribute on `#open`, the `define:vars={{ playUrl }}` script, and `<meta name="robots" content="noindex">`. "Open in Lodestra" becomes a primary button. |
-| `/privacy-policy`, `/terms-of-service`, `/lodestra/privacy-policy` | Calm long-form reading style (comfortable measure, body ladder, headings from the type scale). Wording unchanged. |
+| `/privacy-policy`, `/terms-of-service`, `/lodestra/privacy-policy` | Calm long-form reading style (comfortable measure, body ladder, headings from the type scale). **Entity rename (owner's decision):** every "Dig Turtle & Filicode", "Dig Turtle and Filicode", "Dig Turtle or Filicode" and bare "Dig Turtle" becomes **"Made With Pixels, LLC"**, in the body, `<title>` and meta description. Fix grammar only where the rename forces it (e.g. "Dig Turtle and Filicode are designed…" becomes "Made With Pixels, LLC apps are designed…"; "trademarks of Dig Turtle and Filicode" becomes "trademarks of Made With Pixels, LLC"). Nothing else in the wording changes. Bump each page's "Last updated" to October 2026 (my call, since the text changed). |
 | `/styleguide` | New. Shows color tokens, type scale, radii/spacing, buttons, app row (default, hover/focus), store badges (live and coming soon) and focus states. `noindex`, not linked from the main nav. |
 
 The `featuredApps` data currently has an `image` field pointing at `/images/*.png`, which doesn't exist in `public/`, so there are no app icons today. The row's icon tile needs a sensible treatment without real icons, and should be able to show a real icon later.
