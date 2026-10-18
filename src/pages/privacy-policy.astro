@@ -1,74 +1,52 @@
 ---
-import '../styles/global.css';
+import LegalLayout from '../layouts/LegalLayout.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-gray-900">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Privacy Policy - Dig Turtle</title>
-		<meta name="description" content="Privacy Policy for Dig Turtle - Our commitment to your privacy" />
-	</head>
-	<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
-		<main class="max-w-4xl mx-auto">
-			<a href="/" class="text-purple-400 hover:text-purple-300 mb-8 inline-block">← Back to Home</a>
-			
-			<h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-				Privacy Policy
-			</h1>
-			
-			<p class="text-xl mb-8 text-gray-300">
-				Last updated: March 2025
-			</p>
+<LegalLayout
+  title="Privacy Policy - Made With Pixels, LLC"
+  description="Privacy Policy for Made With Pixels, LLC - Our commitment to your privacy"
+  heading="Privacy Policy"
+  updated="October 2026"
+>
+  <section>
+    <h2>Overview</h2>
+    <p>
+      Welcome to Made With Pixels, LLC. We respect your privacy and are committed to protecting it through our compliance with this policy.
+    </p>
+  </section>
 
-			<div class="space-y-8">
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-3xl font-bold mb-4">Overview</h2>
-					<p class="text-gray-300">
-						Welcome to Dig Turtle. We respect your privacy and are committed to protecting it through our compliance with this policy.
-					</p>
-				</div>
+  <section>
+    <h2>Data Collection</h2>
+    <p>
+      Made With Pixels, LLC apps are designed with privacy in mind. We do not collect, store, or process any personal information from our users. Our apps operate entirely on your device without requiring any data transmission to external servers.
+    </p>
+  </section>
 
-				<div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 rounded-xl">
-					<h2 class="text-2xl font-bold mb-4">Data Collection</h2>
-					<p class="text-gray-200">
-						Dig Turtle and Filicode are designed with privacy in mind. We do not collect, store, or process any personal information from our users. Our apps operate entirely on your device without requiring any data transmission to external servers.
-					</p>
-				</div>
+  <section>
+    <h2>Third-Party Services</h2>
+    <p>
+      Our apps are distributed through official app stores (Google Play Store and Apple App Store). While we don't collect data, these platforms may collect basic analytics and crash reports according to their respective privacy policies. Additionally, our apps may display advertisements from third-party ad networks. These networks may collect and process information about your device and app usage to provide relevant advertisements.
+    </p>
+  </section>
 
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-2xl font-bold mb-4">Third-Party Services</h2>
-					<p class="text-gray-300">
-						Our apps are distributed through official app stores (Google Play Store and Apple App Store). While we don't collect data, these platforms may collect basic analytics and crash reports according to their respective privacy policies. Additionally, our apps may display advertisements from third-party ad networks. These networks may collect and process information about your device and app usage to provide relevant advertisements.
-					</p>
-				</div>
+  <section>
+    <h2>Children's Privacy</h2>
+    <p>
+      Our apps do not knowingly collect any personal information from children under the age of 13. As we don't collect any user data, parents can be assured that their children's privacy is protected while using our apps.
+    </p>
+  </section>
 
-				<div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 rounded-xl">
-					<h2 class="text-2xl font-bold mb-4">Children's Privacy</h2>
-					<p class="text-gray-200">
-						Our apps do not knowingly collect any personal information from children under the age of 13. As we don't collect any user data, parents can be assured that their children's privacy is protected while using our apps.
-					</p>
-				</div>
+  <section>
+    <h2>Changes to This Policy</h2>
+    <p>
+      We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
+    </p>
+  </section>
 
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-2xl font-bold mb-4">Changes to This Policy</h2>
-					<p class="text-gray-300">
-						We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
-					</p>
-				</div>
-
-				<div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 rounded-xl">
-					<h2 class="text-2xl font-bold mb-4">Contact Us</h2>
-					<p class="text-gray-200">
-						If you have any questions about this Privacy Policy, please contact us through our social media channels listed on our homepage.
-					</p>
-				</div>
-			</div>
-		</main>
-
-		<footer class="mt-16 text-gray-400 text-sm">
-			<p>© 2025 Dig Turtle & Filicode. All rights reserved.</p>
-		</footer>
-	</body>
-</html> 
+  <section>
+    <h2>Contact Us</h2>
+    <p>
+      If you have any questions about this Privacy Policy, please contact us through our social media channels listed on our homepage.
+    </p>
+  </section>
+</LegalLayout>

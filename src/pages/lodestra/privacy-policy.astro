@@ -1,107 +1,87 @@
 ---
-import '../../styles/global.css';
+import LegalLayout from '../../layouts/LegalLayout.astro';
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-gray-900">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Privacy Policy - Lodestra</title>
-		<meta name="description" content="Privacy Policy for Lodestra, the trip organizer for Android" />
-	</head>
-	<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
-		<main class="max-w-4xl mx-auto">
-			<a href="/lodestra" class="text-purple-400 hover:text-purple-300 mb-8 inline-block">← Back to Lodestra</a>
+<LegalLayout
+  title="Lodestra Privacy Policy - Made With Pixels, LLC"
+  description="Privacy Policy for Lodestra, the trip organizer for Android"
+  heading="Lodestra Privacy Policy"
+  updated="October 2026"
+  footerLinks={[{ href: '/lodestra', label: 'About Lodestra' }]}
+>
+  <section>
+    <h2>Overview</h2>
+    <p>
+      Lodestra is a trip organizer for Android made by Made With Pixels, LLC. Lodestra has no servers of its own: your trips stay on your device and in your own Google Drive.
+    </p>
+  </section>
 
-			<h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-				Lodestra Privacy Policy
-			</h1>
+  <section>
+    <h2>Information on Your Device</h2>
+    <p>
+      The trips, itinerary items and notes you enter are stored in a database on your device.
+    </p>
+  </section>
 
-			<p class="text-xl mb-8 text-gray-300">
-				Last updated: October 17, 2026
-			</p>
+  <section>
+    <h2>Google Sign-In and Google Drive</h2>
+    <p>
+      If you turn on backup, Lodestra asks you to sign in with Google and to allow access to Google Drive. It uses two limited permissions:
+    </p>
+    <ul>
+      <li><strong>App data folder</strong> (<code>drive.appdata</code>): a hidden folder in your Drive that only Lodestra can see, used for backups and app settings.</li>
+      <li><strong>Files Lodestra creates or you open with it</strong> (<code>drive.file</code>): Lodestra can only see files it created or that you chose to open with it. It cannot see the rest of your Drive.</li>
+    </ul>
+    <p>
+      This data goes directly between your device and Google; we never receive it. Google's handling of it is covered by the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. Lodestra's use of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.
+    </p>
+  </section>
 
-			<div class="space-y-8">
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-3xl font-bold mb-4">Overview</h2>
-					<p class="text-gray-300">
-						Lodestra is a trip organizer for Android made by Dig Turtle & Filicode. Lodestra has no servers of its own: your trips stay on your device and in your own Google Drive.
-					</p>
-				</div>
+  <section>
+    <h2>Sharing a Trip</h2>
+    <p>
+      When you share a trip, Lodestra uses Google Drive to give the people you choose access to that trip's file, as a viewer or an editor. Their email address is used only to grant that access. The invite link you send contains the trip's name and your display name, which anyone you send it to can read. The link alone does not give access to the trip.
+    </p>
+  </section>
 
-				<div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 rounded-xl">
-					<h2 class="text-2xl font-bold mb-4">Information on Your Device</h2>
-					<p class="text-gray-200">
-						The trips, itinerary items and notes you enter are stored in a database on your device.
-					</p>
-				</div>
+  <section>
+    <h2>What We Don't Do</h2>
+    <ul>
+      <li>We don't sell your information or share it with data brokers.</li>
+      <li>We don't use your Google Drive data for advertising.</li>
+      <li>We don't send your trips to any server of ours.</li>
+    </ul>
+  </section>
 
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-2xl font-bold mb-4">Google Sign-In and Google Drive</h2>
-					<p class="text-gray-300 mb-4">
-						If you turn on backup, Lodestra asks you to sign in with Google and to allow access to Google Drive. It uses two limited permissions:
-					</p>
-					<ul class="list-disc pl-6 space-y-2 text-gray-300 mb-4">
-						<li><strong>App data folder</strong> (<code>drive.appdata</code>): a hidden folder in your Drive that only Lodestra can see, used for backups and app settings.</li>
-						<li><strong>Files Lodestra creates or you open with it</strong> (<code>drive.file</code>): Lodestra can only see files it created or that you chose to open with it. It cannot see the rest of your Drive.</li>
-					</ul>
-					<p class="text-gray-300">
-						This data goes directly between your device and Google; we never receive it. Google's handling of it is covered by the <a href="https://policies.google.com/privacy" class="text-purple-400 hover:text-purple-300">Google Privacy Policy</a>. Lodestra's use of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" class="text-purple-400 hover:text-purple-300">Google API Services User Data Policy</a>, including the Limited Use requirements.
-					</p>
-				</div>
+  <!-- When ads ship in Lodestra, add a section on Google AdMob: the advertising ID, device and
+       usage data AdMob collects, contextual keywords from trip destinations, and the consent
+       prompt in the EEA/UK. Link https://policies.google.com/technologies/partner-sites -->
 
-				<div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 rounded-xl">
-					<h2 class="text-2xl font-bold mb-4">Sharing a Trip</h2>
-					<p class="text-gray-200">
-						When you share a trip, Lodestra uses Google Drive to give the people you choose access to that trip's file, as a viewer or an editor. Their email address is used only to grant that access. The invite link you send contains the trip's name and your display name, which anyone you send it to can read. The link alone does not give access to the trip.
-					</p>
-				</div>
+  <section>
+    <h2>Deleting Your Data</h2>
+    <p>
+      Uninstalling Lodestra deletes the data on your device. To delete your backup, open Google Drive on the web → Settings → Manage apps → Lodestra → Delete hidden app data. Trip files in the <em>Lodestra</em> folder of your Drive can be deleted like any other file. You can remove Lodestra's access to your Google account at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+    </p>
+  </section>
 
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-2xl font-bold mb-4">What We Don't Do</h2>
-					<ul class="list-disc pl-6 space-y-2 text-gray-300">
-						<li>We don't sell your information or share it with data brokers.</li>
-						<li>We don't use your Google Drive data for advertising.</li>
-						<li>We don't send your trips to any server of ours.</li>
-					</ul>
-				</div>
-				<!-- When ads ship in Lodestra, add a section on Google AdMob: the advertising ID, device and
-				     usage data AdMob collects, contextual keywords from trip destinations, and the consent
-				     prompt in the EEA/UK. Link https://policies.google.com/technologies/partner-sites -->
+  <section>
+    <h2>Children's Privacy</h2>
+    <p>
+      Lodestra is not directed at children under the age of 13.
+    </p>
+  </section>
 
-				<div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 rounded-xl">
-					<h2 class="text-2xl font-bold mb-4">Deleting Your Data</h2>
-					<p class="text-gray-200">
-						Uninstalling Lodestra deletes the data on your device. To delete your backup, open Google Drive on the web → Settings → Manage apps → Lodestra → Delete hidden app data. Trip files in the <em>Lodestra</em> folder of your Drive can be deleted like any other file. You can remove Lodestra's access to your Google account at <a href="https://myaccount.google.com/permissions" class="text-purple-300 hover:text-white">myaccount.google.com/permissions</a>.
-					</p>
-				</div>
+  <section>
+    <h2>Changes to This Policy</h2>
+    <p>
+      If this policy changes, we will post the new version on this page and update the "Last updated" date.
+    </p>
+  </section>
 
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-2xl font-bold mb-4">Children's Privacy</h2>
-					<p class="text-gray-300">
-						Lodestra is not directed at children under the age of 13.
-					</p>
-				</div>
-
-				<div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 rounded-xl">
-					<h2 class="text-2xl font-bold mb-4">Changes to This Policy</h2>
-					<p class="text-gray-200">
-						If this policy changes, we will post the new version on this page and update the "Last updated" date.
-					</p>
-				</div>
-
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-2xl font-bold mb-4">Contact Us</h2>
-					<p class="text-gray-300">
-						Questions about this policy: <a href="mailto:brillianceanimationstudios@gmail.com" class="text-purple-400 hover:text-purple-300">brillianceanimationstudios@gmail.com</a>
-					</p>
-				</div>
-			</div>
-		</main>
-
-		<footer class="mt-16 text-gray-400 text-sm">
-			<p>© 2026 Dig Turtle & Filicode. All rights reserved.</p>
-		</footer>
-	</body>
-</html>
+  <section>
+    <h2>Contact Us</h2>
+    <p>
+      Questions about this policy: <a href="mailto:brillianceanimationstudios@gmail.com">brillianceanimationstudios@gmail.com</a>
+    </p>
+  </section>
+</LegalLayout>
