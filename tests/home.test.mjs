@@ -85,3 +85,11 @@ test('lodestra page', () => {
   assert.ok(page.includes('© 2026 Made With Pixels, LLC'));
   assert.match(page, /href="\/lodestra\/privacy-policy"/);
 });
+
+test('row neon uses keyboard focus, not focus-within', () => {
+  for (const row of rows) {
+    const cls = row.match(/<li\b[^>]*class="([^"]*)"/)[1];
+    assert.ok(cls.includes('has-[:focus-visible]:'), 'row lacks a focus-visible neon state');
+    assert.ok(!row.includes('focus-within'), 'row markup still uses focus-within');
+  }
+});

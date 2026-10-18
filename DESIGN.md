@@ -301,7 +301,7 @@ The shared page shell. Header with the brand **"Made With Pixels"** in `{colors.
 One app in the catalog list. Rows stack inside an `app-list` panel (`bg-surface border border-hairline rounded-lg`), separated by hairline dividers.
 - **Contents:** icon tile, app name (`{colors.ink}`), one-line description (`{colors.mute}`), and the app's own store badges. An app with its own page links its name there. The row itself is not one big link, since it contains badge links.
 - **Icon tile:** 48px, `{rounded.md}`, `{colors.surface-card}` with a hairline border. Without a real icon it shows the app's first letter in `{colors.mute}`; a real icon image fills the tile when one exists.
-- **Neon state:** on `hover`, `:focus-within` and `:active` (tap), the row gets a faint magenta wash (accent-from at ~6%), the icon tile turns into the accent gradient with a magenta glow, and the arrow turns `{colors.accent-from}`. Tap must visibly flash even when it navigates away. Use Tailwind's `hover:` (it is gated to hover-capable devices), `focus-within:` and `active:`.
+- **Neon state:** on `hover`, keyboard focus inside the row (`:has(:focus-visible)`) and `:active` (tap), the row gets a faint magenta wash (accent-from at ~6%), the icon tile turns into the accent gradient with a magenta glow, and the arrow turns `{colors.accent-from}`. Tap must visibly flash even when it navigates away. Use Tailwind's `hover:` (it is gated to hover-capable devices), `has-[:focus-visible]:` (with `group-has-[:focus-visible]:` on the tile and arrow) and `active:`. Don't use `focus-within:`: browsers focus a link on tap, so the row would stay lit after a visitor taps a badge and comes back.
 - **Never permanent.** No row is lit by default, and there is no `featured` flag.
 - Transitions are short (~150ms) and disappear under `prefers-reduced-motion: reduce`.
 
@@ -323,7 +323,7 @@ Every interactive element shows a visible focus ring from the accent (`ring-acce
 - Follow this file for all UI, and use the semantic token utilities.
 - Keep the neon to one always-on moment (the hero phrase) plus glows, lit rows and focus rings.
 - Derive every neon use from `--color-accent-from` and `--color-accent-to`.
-- Light app rows on hover, focus-within and tap, so phone visitors see the neon too.
+- Light app rows on hover, keyboard focus and tap, so phone visitors see the neon too.
 - Show each store's status per app, with a visible "Coming soon" label.
 - Build depth from the surface ladder and hairlines.
 - Check body text meets WCAG AA (4.5:1) on its surface.
