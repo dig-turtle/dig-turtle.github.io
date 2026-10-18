@@ -24,9 +24,19 @@ test('#play is the anchor itself, pointing at Play', () => {
   assert.ok(tag.includes(`href="${PLAY}"`), tag);
 });
 
-test('#headline wears the gradient itself and wraps long text', () => {
+test('"Lodestra Trip Invite" is the h1 and wears the gradient', () => {
+  const h1s = [...html.matchAll(/<h1\b([^>]*)>([\s\S]*?)<\/h1>/g)];
+  assert.equal(h1s.length, 1, 'exactly one h1');
+  const [, attrs, text] = h1s[0];
+  assert.equal(text.trim(), 'Lodestra Trip Invite');
+  assert.match(attrs, /text-gradient-accent/);
+});
+
+test('#headline is a calm secondary line that wraps long text', () => {
   const tag = tagWithId('headline');
-  assert.match(tag, /text-gradient-accent/);
+  assert.match(tag, /^<p\b/);
+  assert.doesNotMatch(tag, /text-gradient-accent/);
+  assert.match(tag, /\btext-(ink|body)\b/);
   assert.match(tag, /break-words|text-balance|text-wrap/);
 });
 
@@ -44,4 +54,10 @@ test('layout chrome and footer links', () => {
   assert.ok(html.includes('© 2026 Made With Pixels, LLC'));
   assert.match(html, /href="\/lodestra"/);
   assert.match(html, /href="\/lodestra\/privacy-policy"/);
+});
+
+test('#play badge is not lazy-loaded (above the fold)', () => {
+  const play = html.match(/<a\b[^>]*\bid="play"[^>]*>[\s\S]*?<\/a>/)?.[0] ?? '';
+  assert.match(play, /<img\b/);
+  assert.doesNotMatch(play, /loading="lazy"/);
 });

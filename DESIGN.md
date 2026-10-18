@@ -2,7 +2,7 @@
 version: alpha
 name: Made-With-Pixels
 description: |
-  The design system for apps.madewithpixels.xyz, the catalog of small, useful mobile apps published by Made With Pixels, LLC. A near-black canvas with a faint surface ladder, hairline borders, Inter with the ss03 stylistic set, tight radii and a white pill CTA, lit by one neon duo (magenta to cyan). The neon is deliberate and rare: one gradient phrase in the hero, soft glows bleeding in at the page edges, and app rows that light up on hover, focus and tap. Everything else stays dark and calm. The feel is a young studio hard at work on a growing empire of useful tools.
+  The design system for apps.madewithpixels.xyz, the catalog of small, useful mobile apps published by Made With Pixels, LLC. A near-black canvas with a faint surface ladder, hairline borders, Inter with the ss03 stylistic set, tight radii and a white pill CTA, lit by one neon duo (magenta to cyan). The neon is deliberate and rare: the gradient brand wordmark, one gradient title per page (the hero phrase, a legal or invite title), soft glows bleeding in at the page edges, and app rows that light up on hover, focus and tap. Everything else stays dark and calm. The feel is a young studio hard at work on a growing empire of useful tools.
 
 colors:
   canvas: "#07080a"
@@ -172,7 +172,7 @@ components:
     outlineOffset: 2px
   site-header:
     backgroundColor: "transparent"
-    textColor: "{colors.ink}"
+    textFill: "linear-gradient(90deg, {colors.accent-from}, {colors.accent-to})"
     typography: "{typography.body-strong}"
     height: 56px
   site-footer:
@@ -184,6 +184,8 @@ components:
     textColor: "{colors.body}"
     typography: "{typography.body-md}"
     maxWidth: 65ch
+    titleFill: "linear-gradient(90deg, {colors.accent-from}, {colors.accent-to})"
+    headingAccent: "32px x 3px gradient bar above each h2 (accent-bar)"
 ---
 
 Derived from Raycast's DESIGN.md (VoltAgent/awesome-design-md, `design-md/raycast/DESIGN.md` @ `e06a96660396d741d0c106c8972172254dafbdc2`, MIT), rewritten for Made With Pixels.
@@ -196,7 +198,7 @@ The base is dark and quiet: a near-black `{colors.canvas}` with a faint surface 
 
 **Key characteristics:**
 - One dark mode. No light variant.
-- One gradient-text phrase in the hero headline, and nowhere else as an always-on effect.
+- Gradient text is always on in two kinds of place only: the header brand wordmark (every page) and one title per page (the hero phrase, the legal page title, the "Lodestra Trip Invite" title). Never body text.
 - Soft radial glows (magenta top-right, cyan bottom-left) bleeding in at the page edges.
 - Apps shown as a **catalog list**: it looks intentional at 4 apps and still works at 15.
 - App rows light up on hover, keyboard focus and tap. No row is lit permanently.
@@ -225,13 +227,16 @@ All colors are Tailwind v4 theme tokens in `src/styles/global.css` (`@theme`). U
 ### Neon duo
 - **Accent From** (`{colors.accent-from}`, `#ff2fd6`, magenta) and **Accent To** (`{colors.accent-to}`, `#22d3ee`, cyan).
 - Every neon use derives from these two variables: gradient text, glows, the lit row, the icon-tile gradient and the focus ring. Never hard-code the hex values or use another accent.
-- Where neon may appear: the one hero gradient phrase, the edge glows, the lit state of app rows, and focus rings. Nowhere else.
+- Where neon may appear: the header brand wordmark, one gradient title per page, the `accent-bar` rule above legal section headings, the edge glows, the lit state of app rows, and focus rings. Nowhere else.
+- **Gradient text** uses `text-gradient-accent`, only at 16px and up with weight 500 or more. Both ends pass AA on the dark surfaces (magenta 6.3:1, cyan 11.1:1 on canvas), so it stays legible; still keep it to short titles, never paragraphs.
 
-**Per-app accent override.** A future app page can wear its own duo by setting the two variables on a wrapper. Everything inside follows:
+**Per-app accent override.** A future app page can wear its own duo by overriding the two variables. For a full app page, set them on `<html>` so everything Layout draws follows too: the header brand, the edge glows and the focus rings.
 
 ```html
-<div style="--color-accent-from: #ffb020; --color-accent-to: #ff5a36">…</div>
+<html style="--color-accent-from: #ffb020; --color-accent-to: #ff5a36">…</html>
 ```
+
+Setting them on a wrapper instead only re-themes that wrapper's contents (useful for a sample or a single panel); the header, glows and anything outside keep the Made With Pixels duo.
 
 App pages wear the Made With Pixels duo today; no variants exist yet.
 
@@ -241,7 +246,7 @@ App pages wear the Made With Pixels duo today; no variants exist yet.
 
 | Token | Size | Weight | Line height | Use |
 |---|---|---|---|---|
-| `{typography.display-xl}` | 64px | 600 | 1.1 | Hero headline (the gradient phrase lives here) |
+| `{typography.display-xl}` | 64px | 600 | 1.1 | Hero headline (the gradient phrase lives here), invite title |
 | `{typography.display-lg}` | 56px | 500 | 1.17 | App page title |
 | `{typography.heading-xl}` | 24px | 500 | 1.6 | Section heading, legal H2 |
 | `{typography.heading-md}` | 20px | 500 | 1.4 | Sub-section, legal H3 |
@@ -290,7 +295,7 @@ Corners stay between 4 and 16px except for pills. In Tailwind: `rounded-xs` thro
 Components live in `src/components/` and `src/layouts/`. Reuse them; don't re-create their markup on a page.
 
 ### Layout
-The shared page shell. Header with the brand **"Made With Pixels"** in `{colors.ink}` (links home). The two edge glows (`glow-from` top-right, `glow-to` bottom-left). Footer on a `{colors.hairline}` top rule reading exactly **"© 2026 Made With Pixels, LLC"**, with Privacy Policy and Terms of Service links; app pages may add their own links (e.g. Lodestra Privacy Policy).
+The shared page shell. Header with the brand **"Made With Pixels"** in the accent gradient (`text-gradient-accent`, links home): the wordmark is a sanctioned always-on gradient, on every page. The two edge glows (`glow-from` top-right, `glow-to` bottom-left). Footer on a `{colors.hairline}` top rule reading exactly **"© 2026 Made With Pixels, LLC"**, with Privacy Policy and Terms of Service links; app pages may add their own links (e.g. Lodestra Privacy Policy).
 
 ### Button
 - **Primary:** white pill (`bg-primary text-on-primary rounded-full`), `{typography.button-md}`, ~40px tall. One per screen.
@@ -299,7 +304,7 @@ The shared page shell. Header with the brand **"Made With Pixels"** in `{colors.
 
 ### AppRow
 One app in the catalog list. Rows stack inside an `app-list` panel (`bg-surface border border-hairline rounded-lg`), separated by hairline dividers.
-- **Contents:** icon tile, app name (`{colors.ink}`), one-line description (`{colors.mute}`), and the app's own store badges. An app with its own page links its name there. The row itself is not one big link, since it contains badge links.
+- **Contents:** icon tile, app name (`{colors.ink}`), one-line description (`{colors.mute}`), and the app's own store badges. An app with its own page links its name there, with a quiet always-on underline (`decoration-ash`, brightening to ink on hover) so phone visitors can tell it's a link. The row itself is not one big link, since it contains badge links. Each live badge link gets an accessible name that includes the app ("Get EzCamel on Google Play"), so a screen reader's links list isn't a column of identical names.
 - **Icon tile:** 48px, `{rounded.md}`, `{colors.surface-card}` with a hairline border. Without a real icon it shows the app's first letter in `{colors.mute}`; a real icon image fills the tile when one exists.
 - **Neon state:** on `hover`, keyboard focus inside the row (`:has(:focus-visible)`) and `:active` (tap), the row gets a faint magenta wash (accent-from at ~6%), the icon tile turns into the accent gradient with a magenta glow, and the arrow turns `{colors.accent-from}`. Tap must visibly flash even when it navigates away. Use Tailwind's `hover:` (it is gated to hover-capable devices), `has-[:focus-visible]:` (with `group-has-[:focus-visible]:` on the tile and arrow) and `active:`. Don't use `focus-within:`: browsers focus a link on tap, so the row would stay lit after a visitor taps a badge and comes back.
 - **Never permanent.** No row is lit by default, and there is no `featured` flag.
@@ -307,12 +312,12 @@ One app in the catalog list. Rows stack inside an `app-list` panel (`bg-surface 
 
 ### StoreBadge
 One store (Google Play or App Store) for one app. Status is set per store, per app.
-- **Live:** the official, unaltered badge image (same URLs the site uses today), ~40px tall, wrapped in a link to the store listing, with `ring-accent` focus.
+- **Live:** the official, unaltered badge image (same URLs the site uses today), ~40px tall, wrapped in a link to the store listing, with `ring-accent` focus. Pass `label` to name the link for its app (used as `aria-label`). Live badges load eagerly, since they often sit above the fold (the invite page's `#play`).
 - **Coming soon:** the same official image dimmed (`opacity-50`), **not a link**, with a visible "Coming soon" label in `{typography.caption-sm}` `{colors.mute}` beside or under it. The label shows without hover, since most visitors are on phones.
 - Only placement, size and the coming-soon dimming may change. Never recolor, crop, filter or redraw the artwork.
 
 ### LegalLayout
-Long-form reading for policies and terms: the Layout shell, a ~65ch measure (`max-w-prose`), `{typography.body-md}` in `{colors.body}`, headings from the scale in `{colors.ink}`, links in `{colors.ink}` with an underline, "Last updated" in `{colors.mute}`. Calm: no gradient text, no lit states.
+Long-form reading for policies and terms: the Layout shell, a ~65ch measure (`max-w-prose`), `{typography.body-md}` in `{colors.body}`, links in `{colors.ink}` with an underline, "Last updated" in `{colors.mute}`. The page title (`h1`) wears `text-gradient-accent`; each section `h2` stays `{colors.ink}` with a short gradient rule above it (`accent-bar`, 32×3px). That is all the color: body text, links and h3s stay calm, with no lit states.
 
 ### Focus
 Every interactive element shows a visible focus ring from the accent (`ring-accent`: 2px `{colors.accent-from}` outline, 2px offset, soft magenta halo).
@@ -321,7 +326,7 @@ Every interactive element shows a visible focus ring from the accent (`ring-acce
 
 ### Do
 - Follow this file for all UI, and use the semantic token utilities.
-- Keep the neon to one always-on moment (the hero phrase) plus glows, lit rows and focus rings.
+- Keep the always-on neon to the brand wordmark and one gradient title per page, plus glows, lit rows, legal `accent-bar` rules and focus rings.
 - Derive every neon use from `--color-accent-from` and `--color-accent-to`.
 - Light app rows on hover, keyboard focus and tap, so phone visitors see the neon too.
 - Show each store's status per app, with a visible "Coming soon" label.
@@ -331,9 +336,9 @@ Every interactive element shows a visible focus ring from the accent (`ring-acce
 
 ### Don't
 - **Don't clone the source system.** No striped hero banners, no product screenshots as decoration, no borrowed brand or voice. Color, hero and copy read as Made With Pixels.
-- **Don't put neon everywhere.** No gradient on every heading, no accent-colored body text, no permanently lit or "featured" row.
+- **Don't put neon everywhere.** No gradient on section headings or body text (one gradient title per page, plus the wordmark), no accent-colored body text, no permanently lit or "featured" row.
 - **Don't alter store badges.** No recoloring, filters, borders drawn over the artwork or custom badge art. Coming-soon badges are not links.
-- **Don't break the Lodestra invite flow.** `/lodestra/invite` keeps its ids (`headline`, `detail`, `play`, `open`), the `hidden` attribute on `#open`, its `define:vars` script and its `noindex` meta. Its Play badge stays a live link.
+- **Don't break the Lodestra invite flow.** `/lodestra/invite` keeps its ids (`headline`, `detail`, `play`, `open`), the `hidden` attribute on `#open`, its `define:vars` script and its `noindex` meta. Its Play badge stays a live link. The `h1` is the fixed gradient title "Lodestra Trip Invite"; `#headline` is the secondary line under it (a `<p>` in `{colors.ink}`, ~18–20px) that the script rewrites with the sharer and trip name, and it must keep wrapping long names.
 - Don't use Tailwind's stock grays or purples, or hard-code hex colors in pages.
 - Don't use `{colors.ash}` for body text.
 - Don't add a light mode or drop shadows on cards.

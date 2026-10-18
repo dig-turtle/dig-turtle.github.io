@@ -44,6 +44,19 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* A short neon rule above a heading. Decorative only; the heading text stays ink. */
+@utility accent-bar {
+  &::before {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 3px;
+    margin-bottom: 0.75rem;
+    border-radius: 9999px;
+    background-image: linear-gradient(90deg, var(--color-accent-from), var(--color-accent-to));
+  }
+}
+
 @utility ring-accent {
   &:focus-visible {
     outline: 2px solid var(--color-accent-from);

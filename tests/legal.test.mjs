@@ -33,3 +33,22 @@ test('entity named in body text and title', () => {
 test('updated date', () => {
   for (const route of LEGAL) assert.ok(readPage(route).includes('Last updated: October 2026'), route);
 });
+
+test('header brand wears the gradient on every page', () => {
+  for (const file of allPages()) {
+    const html = readFileSync(file, 'utf8');
+    const header = html.match(/<header\b[\s\S]*?<\/header>/)?.[0] ?? '';
+    const brand = header.match(/<a\b[^>]*href="\/"[^>]*>\s*Made With Pixels\s*<\/a>/)?.[0];
+    assert.ok(brand, `${file}: no header brand`);
+    assert.match(brand, /text-gradient-accent/, file);
+  }
+});
+
+test('legal heading in the gradient; section h2s get the accent bar', () => {
+  for (const route of LEGAL) {
+    const html = readPage(route);
+    const h1 = html.match(/<h1\b[^>]*>/)?.[0] ?? '';
+    assert.match(h1, /text-gradient-accent/, `${route} h1`);
+    assert.ok(html.includes('[&_h2]:accent-bar'), `${route} h2 accent`);
+  }
+});
