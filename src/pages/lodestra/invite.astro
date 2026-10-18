@@ -1,48 +1,43 @@
 ---
-import '../../styles/global.css';
+import Layout from '../../layouts/Layout.astro';
+import StoreBadge from '../../components/StoreBadge.astro';
+import Button from '../../components/Button.astro';
 
 // Lodestra opens this URL directly when it's installed (Android App Links, verified by
 // /.well-known/assetlinks.json). This page is only the fallback for everyone else.
 const playUrl = 'https://play.google.com/store/apps/details?id=io.bwvolleyball.lodestra';
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-gray-900">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="robots" content="noindex" />
-		<title>Trip invite - Lodestra</title>
-	</head>
-	<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
-		<main class="max-w-2xl mx-auto text-center">
-			<h1 id="headline" class="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-				You've been invited to a trip
-			</h1>
+<Layout
+  title="Trip invite - Lodestra"
+  noindex
+  footerLinks={[
+    { href: '/lodestra', label: 'About Lodestra' },
+    { href: '/lodestra/privacy-policy', label: 'Lodestra Privacy Policy' },
+  ]}
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pt-12 pb-12 sm:px-6 md:pt-16 md:pb-16 lg:pt-24 lg:pb-24">
+    <p class="mb-4 font-mono text-xs leading-[1.5] tracking-[0.12em] text-mute uppercase">Lodestra trip invite</p>
+    <h1
+      id="headline"
+      class="text-gradient-accent text-[2rem] leading-[1.17] font-medium tracking-[0.2px] [overflow-wrap:anywhere] break-words sm:text-5xl"
+    >
+      You've been invited to a trip
+    </h1>
 
-			<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-				<p id="detail" class="text-gray-300 mb-4">
-					Someone shared a trip with you in Lodestra, a trip organizer for Android.
-				</p>
-				<p class="text-gray-400 mb-6">Install Lodestra, then tap the invite link again to open the trip.</p>
-				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-					<a id="play" href={playUrl} class="transform hover:scale-105 transition-transform">
-						<img
-							src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-							alt="Get it on Google Play"
-							class="h-16"
-						/>
-					</a>
-					<a id="open" href="#" hidden class="bg-purple-500 hover:bg-purple-400 text-white font-bold px-6 py-3 rounded-full">
-						Open in Lodestra
-					</a>
-				</div>
-			</div>
-		</main>
-
-		<footer class="mt-16 text-gray-400 text-sm">
-			<p><a href="/lodestra" class="hover:text-purple-400">About Lodestra</a> | <a href="/lodestra/privacy-policy" class="hover:text-purple-400">Privacy Policy</a></p>
-		</footer>
+    <div class="mt-10 rounded-lg border border-hairline bg-surface p-6 sm:p-8">
+      <p id="detail" class="text-base leading-[1.6] text-body">
+        Someone shared a trip with you in Lodestra, a trip organizer for Android.
+      </p>
+      <p class="mt-4 text-sm leading-[1.6] text-mute">
+        Install Lodestra, then tap the invite link again to open the trip.
+      </p>
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <StoreBadge store="android" link={{ status: 'live', url: playUrl }} id="play" />
+        <Button id="open" href="#" hidden>Open in Lodestra</Button>
+      </div>
+    </div>
+  </section>
 
 		<script is:inline define:vars={{ playUrl }}>
 			// The invite details live in the #fragment, which browsers never send to the server.
@@ -75,5 +70,4 @@ const playUrl = 'https://play.google.com/store/apps/details?id=io.bwvolleyball.l
 				}
 			})();
 		</script>
-	</body>
-</html>
+</Layout>
