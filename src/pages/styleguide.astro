@@ -1,21 +1,21 @@
 ---
-import { readFileSync } from 'node:fs';
 import Layout from '../layouts/Layout.astro';
 import AppRow from '../components/AppRow.astro';
 import Button from '../components/Button.astro';
 import StoreBadge from '../components/StoreBadge.astro';
 import { apps } from '../data/apps';
 import type { App } from '../data/apps';
+// ?raw is the untouched source; Tailwind's Vite plugin skips ?raw imports.
+import css from '../styles/global.css?raw';
 
 // Single source of truth for hex values: the @theme block itself.
-const css = readFileSync('src/styles/global.css', 'utf8');
 const colors = [...css.matchAll(/--color-([a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,8})\s*;/g)].map((m) => ({
   name: m[1],
   hex: m[2].toLowerCase(),
 }));
 
-const live = apps[0];
-const soon = apps[3];
+const live = apps.find((app) => app.stores.android.status === 'live')!;
+const soon = apps.find((app) => app.stores.android.status === 'coming-soon' && app.stores.ios.status === 'coming-soon')!;
 
 const sampleIcon =
   'data:image/svg+xml,' +
@@ -61,7 +61,7 @@ const spacing = [
 ---
 
 <Layout title="Styleguide · Made With Pixels" noindex>
-  <main class="mx-auto w-full max-w-3xl px-4 py-12 sm:py-16">
+  <div class="mx-auto w-full max-w-3xl px-4 py-12 sm:py-16">
     <p class="font-mono text-xs tracking-[1px] text-mute uppercase">Styleguide</p>
     <h1 class="mt-3 text-4xl leading-[1.1] font-semibold text-ink">
       Made With Pixels <span class="text-gradient-accent">design system</span>
@@ -184,5 +184,5 @@ const spacing = [
         <code class="font-mono">--color-accent-to</code>; everything inside follows, nothing else changes.
       </p>
     </section>
-  </main>
+  </div>
 </Layout>

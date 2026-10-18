@@ -86,10 +86,27 @@ test('lodestra page', () => {
   assert.match(page, /href="\/lodestra\/privacy-policy"/);
 });
 
-test('row neon uses keyboard focus, not focus-within', () => {
+test('row neon uses hover, keyboard focus and tap, not focus-within', () => {
   for (const row of rows) {
     const cls = row.match(/<li\b[^>]*class="([^"]*)"/)[1];
     assert.ok(cls.includes('has-[:focus-visible]:'), 'row lacks a focus-visible neon state');
+    assert.ok(cls.includes('active:'), 'row lacks a tap (active) neon state');
     assert.ok(!row.includes('focus-within'), 'row markup still uses focus-within');
   }
+});
+
+test('live badge links name their app', () => {
+  for (const name of ['Skip The Paywall', 'EzCamel', 'Clash of Cards: War']) {
+    const row = rows.find((r) => rowName(r) === name);
+    const link = row.match(/<a\b[^>]*href="https:\/\/play\.google\.com[^"]*"[^>]*>/)?.[0] ?? '';
+    const label = link.match(/aria-label="([^"]*)"/)?.[1]?.replace(/&amp;/g, '&');
+    assert.equal(label, `Get ${name} on Google Play`);
+  }
+});
+
+test('rows with a page show a persistent link cue', () => {
+  const row = rows.find((r) => rowName(r) === 'Lodestra');
+  const link = row.match(/<a\b[^>]*href="\/lodestra"[^>]*>/)?.[0] ?? '';
+  const classes = (link.match(/class="([^"]*)"/)?.[1] ?? '').split(/\s+/);
+  assert.ok(classes.includes('underline'), `no always-on underline: ${link}`);
 });

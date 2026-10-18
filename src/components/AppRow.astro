@@ -28,7 +28,10 @@ const { app } = Astro.props;
       <h3 class="text-lg leading-[1.4] font-medium tracking-[0.2px] text-ink">
         {
           app.page ? (
-            <a href={app.page} class="ring-accent -mx-1 rounded-xs px-1 underline-offset-4 hover:underline">
+            <a
+              href={app.page}
+              class="ring-accent -mx-1 rounded-xs px-1 underline decoration-ash decoration-1 underline-offset-4 transition-colors duration-150 hover:decoration-ink"
+            >
               {app.name}
             </a>
           ) : (
@@ -47,8 +50,8 @@ const { app } = Astro.props;
       >→</span
     >
     <div class="flex flex-wrap items-start gap-3">
-      <StoreBadge store="android" link={app.stores.android} />
-      <StoreBadge store="ios" link={app.stores.ios} />
+      <StoreBadge store="android" link={app.stores.android} label={`Get ${app.name} on Google Play`} />
+      <StoreBadge store="ios" link={app.stores.ios} label={`Download ${app.name} on the App Store`} />
     </div>
   </div>
 </li>

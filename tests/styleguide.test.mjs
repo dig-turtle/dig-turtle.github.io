@@ -25,3 +25,7 @@ test('gradient text and accent override', () => {
   assert.ok(html.includes('text-gradient-accent'));
   assert.match(html, /--color-accent-from:\s*#[0-9a-f]{6}/i);
 });
+
+test('no nested main', () => {
+  assert.equal((html.match(/<main\b/g) || []).length, 1);
+});
