@@ -1,110 +1,33 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import AppRow from '../components/AppRow.astro';
+import { apps } from '../data/apps';
 
-const featuredApps = [
-    {
-        name: "Skip The Paywall",
-        description: "Quickly share links to public paywall removal sites on your phone!",
-        android: "https://play.google.com/store/apps/details?id=io.bwvolleyball.paywall",
-        ios: "coming-soon",
-        image: "/images/skipthepaywall.png"
-    },
-	{
-		name: "EzCamel",
-		description: "Quickly share Amazon links to camelcamelcamel for easy price tracking!",
-		android: "https://play.google.com/store/apps/details?id=io.bwvolleyball.ez.camel",
-		ios: "coming-soon",
-		image: "/images/ezcamel.png"
-	},
-	{
-		name: "Clash of Cards: War",
-		description: "Can you win the war? A new twist on the classic card game of war!",
-		android: "https://play.google.com/store/apps/details?id=io.bwvolleyball.cards.war",
-		ios: "coming-soon",
-		image: "/images/dig-turtle.png"
-	}
-	// Add more apps here as they become available
-];
+const count = String(apps.length).padStart(2, '0');
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-gray-900">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Dig Turtle & Filicode - Mobile for Everyone</title>
-		<meta name="description" content="Dig Turtle and Filicode - Creating engaging mobile games and utilities for everyone" />
-		<!-- Social Media Icons -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-	</head>
-	<body class="min-h-screen flex flex-col items-center justify-center p-4 text-white">
-		<main class="max-w-4xl mx-auto text-center">
-			<h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-				Dig Turtle & Filicode
-			</h1>
-			
-			<p class="text-2xl mb-8 text-gray-300">
-				Mobile for everyone
-			</p>
+<Layout
+  title="Made With Pixels: small, useful mobile apps"
+  description="Made With Pixels builds small, useful mobile apps. Browse the catalog and get them on Google Play."
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pt-12 pb-10 sm:px-6 md:pt-16 lg:pt-24 lg:pb-14">
+    <p class="mb-4 font-mono text-xs leading-[1.5] tracking-[0.12em] text-mute uppercase">Made With Pixels</p>
+    <h1 class="text-[2.5rem] leading-[1.1] font-semibold text-ink sm:text-[2.75rem] lg:text-[4rem]">
+      Useful apps,<br />
+      <span class="text-gradient-accent">shipped fast.</span>
+    </h1>
+    <p class="mt-5 max-w-xl text-lg leading-[1.6] text-mute">
+      A growing toolkit of small, sharp mobile apps, each one built to do a single job well. More are on the way.
+    </p>
+  </section>
 
-			<div class="space-y-8">
-				<div class="bg-gray-800 p-8 rounded-xl shadow-2xl">
-					<h2 class="text-3xl font-bold mb-4">Featured Apps</h2>
-					<div class="grid gap-6">
-						{featuredApps.map(app => (
-							<div class="bg-gray-700 p-6 rounded-lg">
-								<h3 class="text-2xl font-bold mb-2">{app.name}</h3>
-								<p class="text-gray-300 mb-4">{app.description}</p>
-								<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-									<a href={app.android} class="transform hover:scale-105 transition-transform">
-										<img 
-											src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
-											alt="Get it on Google Play" 
-											class="h-16"
-										/>
-									</a>
-									{app.ios === "coming-soon" ? (
-										<div class="relative group">
-											<img 
-												src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
-												alt="Download on the App Store" 
-												class="h-12 opacity-50"
-											/>
-											<span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-700 px-3 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-												Coming Soon!
-											</span>
-										</div>
-									) : (
-										<a href={app.ios} class="transform hover:scale-105 transition-transform">
-											<img 
-												src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
-												alt="Download on the App Store" 
-												class="h-12"
-											/>
-										</a>
-									)}
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-
-				<div class="bg-gradient-to-r from-purple-900 to-pink-900 p-8 rounded-xl">
-					<h2 class="text-2xl font-bold mb-4">Join the Community</h2>
-					<div class="flex justify-center gap-6 text-3xl mb-4">
-						<a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-twitter"></i></a>
-						<a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-discord"></i></a>
-						<a href="#" class="hover:text-purple-400 transition-colors"><i class="fab fa-instagram"></i></a>
-					</div>
-					<p class="text-lg">
-						Follow us for updates and new game announcements
-					</p>
-				</div>
-			</div>
-		</main>
-
-		<footer class="mt-16 text-gray-400 text-sm">
-			<p>© 2025 Dig Turtle & Filicode. All rights reserved. | <a href="/privacy-policy" class="hover:text-purple-400">Privacy Policy</a> | <a href="/terms-of-service" class="hover:text-purple-400">Terms of Service</a></p>
-		</footer>
-	</body>
-</html>
+  <section aria-labelledby="catalog" class="mx-auto w-full max-w-3xl px-4 pb-12 sm:px-6 md:pb-16 lg:pb-24">
+    <div class="mb-3 flex items-baseline justify-between font-mono text-xs leading-[1.5] tracking-[0.12em] text-mute uppercase">
+      <h2 id="catalog">The catalog</h2>
+      <span>{count} apps</span>
+    </div>
+    <ul class="divide-y divide-hairline overflow-hidden rounded-lg border border-hairline bg-surface">
+      {apps.map((app) => <AppRow app={app} />)}
+    </ul>
+  </section>
+</Layout>
