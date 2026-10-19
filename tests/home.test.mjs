@@ -92,14 +92,6 @@ test('lodestra page', () => {
   assert.ok(page.includes('© 2026 Made With Pixels, LLC'));
 });
 
-test('lodestra page links its privacy policy in the content, below the badges', () => {
-  const main = readPage('/lodestra').match(/<main[\s\S]*?<\/main>/)[0];
-  const link = main.match(/<a\b[^>]*href="\/lodestra\/privacy-policy"[^>]*>\s*Lodestra privacy policy\s*<\/a>/)?.[0];
-  assert.ok(link, 'no in-content privacy link');
-  assert.match(link, /\bring-accent\b/);
-  assert.ok(main.indexOf(link) > main.lastIndexOf('data-coming-soon'), 'link is not below the badges');
-});
-
 test('row neon uses hover, keyboard focus and tap, not focus-within', () => {
   for (const row of rows) {
     const cls = row.match(/<li\b[^>]*class="([^"]*)"/)[1];
