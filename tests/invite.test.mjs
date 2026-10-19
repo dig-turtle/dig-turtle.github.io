@@ -68,3 +68,80 @@ test('#play badge is not lazy-loaded (above the fold)', () => {
   assert.match(play, /<img\b/);
   assert.doesNotMatch(play, /loading="lazy"/);
 });
+
+// Runs the built inline script against stubs and returns what it wrote.
+const scriptBody = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
+  .map((m) => m[1])
+  .find((b) => b.includes('intent://'));
+
+function runInvite(hash, ua = 'Android') {
+  const els = {};
+  for (const id of ['headline', 'detail', 'play', 'open']) els[id] = { textContent: '', href: '', hidden: true };
+  els.headline.textContent = 'You\'ve been invited to a trip'; // the static text the page ships with
+  const document = { title: '', getElementById: (id) => els[id] };
+  const location = {
+    hash,
+    origin: 'https://apps.madewithpixels.xyz',
+    pathname: '/lodestra/invite',
+    host: 'apps.madewithpixels.xyz',
+  };
+  new Function('location', 'document', 'navigator', scriptBody)(location, document, { userAgent: ua });
+  return {
+    headline: els.headline.textContent,
+    title: document.title,
+    playHref: els.play.href,
+    openHref: els.open.href,
+  };
+}
+
+const FRAG = '#f=F1234567890&r=reader&n=Trip%20A';
+
+test('viewer headline', () => {
+  assert.equal(runInvite(FRAG).headline, 'You\'ve been invited to view “Trip A” in Lodestra');
+});
+
+test('editor headline', () => {
+  assert.equal(
+    runInvite('#f=F1234567890&r=writer&n=Trip%20A').headline,
+    'You\'ve been invited to edit “Trip A” in Lodestra',
+  );
+});
+
+test('n with no known role', () => {
+  assert.equal(runInvite('#f=F1234567890&n=Trip%20A').headline, 'You\'ve been invited to “Trip A” in Lodestra');
+});
+
+test('no n keeps the generic headline', () => {
+  assert.equal(runInvite('#f=F1234567890&r=reader').headline, 'You\'ve been invited to a trip');
+});
+
+test('by is never shown', () => {
+  const r = runInvite('#f=F1234567890&r=reader&n=Trip%20A&by=Mallory');
+  assert.ok(!r.headline.includes('Mallory'));
+  assert.ok(!r.title.includes('Mallory'));
+});
+
+test('by is stripped from both forwarded URLs', () => {
+  const r = runInvite('#f=F1234567890&r=writer&n=Trip%20A&by=Mallory');
+  const referrer = decodeURIComponent(r.playHref.split('&referrer=')[1]);
+  const query = r.openHref.split('?')[1].split('#Intent')[0];
+  for (const s of [referrer, query]) {
+    assert.ok(!s.includes('by='), s);
+    assert.ok(!s.includes('Mallory'), s);
+    assert.ok(s.includes('f=F1234567890'), s);
+    assert.ok(s.includes('r=writer'), s);
+    assert.ok(s.includes('n='), s);
+  }
+});
+
+test('forwarded n round-trips', () => {
+  const r = runInvite('#f=F1234567890&r=writer&n=Trip%20A&by=Mallory');
+  const referrer = decodeURIComponent(r.playHref.split('&referrer=')[1]);
+  assert.equal(new URLSearchParams(referrer.split('#')[1]).get('n'), 'Trip A');
+  assert.equal(new URLSearchParams(r.openHref.split('?')[1].split('#Intent')[0]).get('n'), 'Trip A');
+});
+
+test('script reads no by and uses textContent only', () => {
+  assert.ok(!scriptBody.includes('get(\'by\')') && !scriptBody.includes('get("by")'));
+  assert.ok(!scriptBody.includes('innerHTML'));
+});

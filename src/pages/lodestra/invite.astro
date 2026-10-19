@@ -54,11 +54,13 @@ const playUrl = 'https://play.google.com/store/apps/details?id=io.bwvolleyball.l
 				if (!raw) return;
 				var params = new URLSearchParams(raw);
 				var name = params.get('n');
-				var by = params.get('by');
+				params.delete('by'); // the sharer's name is never shown or forwarded
+				raw = params.toString();
 				var role = { writer: 'an editor', reader: 'a viewer' }[params.get('r')];
 				if (name) {
+					var verb = { writer: 'edit ', reader: 'view ' }[params.get('r')] || '';
 					document.getElementById('headline').textContent =
-						by ? by + ' shared “' + name + '” with you' : 'You\'ve been invited to “' + name + '”';
+						'You\'ve been invited to ' + verb + '“' + name + '” in Lodestra';
 					document.title = name + ' - Lodestra invite';
 				}
 				if (role) {
