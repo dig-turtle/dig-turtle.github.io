@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { allPages, readPage } from './helpers.mjs';
 
-const LEGAL = ['/privacy-policy', '/terms-of-service', '/lodestra/privacy-policy'];
+const LEGAL = ['/privacy-policy', '/terms-of-service'];
 const ENTITY = 'Made With Pixels, LLC';
 
 test('no old names anywhere', () => {
@@ -31,7 +31,16 @@ test('entity named in body text and title', () => {
 });
 
 test('updated date', () => {
-  for (const route of LEGAL) assert.ok(readPage(route).includes('Last updated: 2026'), route);
+  assert.ok(readPage('/privacy-policy').includes('Last updated: October 2026'), '/privacy-policy');
+  assert.ok(readPage('/terms-of-service').includes('Last updated: 2026'), '/terms-of-service');
+});
+
+test('lodestra privacy policy redirects to the Drive section', () => {
+  const html = readPage('/lodestra/privacy-policy');
+  assert.match(html, /<meta http-equiv="refresh" content="0;\s*url=\/privacy-policy#google-drive"/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/apps\.madewithpixels\.xyz\/privacy-policy"/);
+  assert.match(html, /<meta name="robots" content="noindex"/);
+  assert.match(html, /<a\b[^>]*href="\/privacy-policy#google-drive"/);
 });
 
 test('privacy policy contact email is a mailto link', () => {
