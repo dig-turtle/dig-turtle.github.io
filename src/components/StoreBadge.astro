@@ -7,9 +7,11 @@ interface Props {
   id?: string;
   /** Accessible name for a live badge link, e.g. "Get Lodestra on Google Play". Defaults to the badge's alt text. */
   label?: string;
+  /** Extra classes for the live badge link only (e.g. pointer-events-auto). */
+  class?: string;
 }
 
-const { store, link, id, label } = Astro.props;
+const { store, link, id, label, class: extra } = Astro.props;
 
 // Official artwork, unaltered. Only placement, size and the coming-soon dimming change.
 const badges = {
@@ -36,7 +38,7 @@ const badges = {
       href={link.url}
       id={id}
       aria-label={label}
-      class="ring-accent inline-flex h-10 shrink-0 items-center rounded-md transition-opacity duration-150 hover:opacity-90 active:opacity-80 active:transition-none"
+      class:list={['ring-accent inline-flex h-10 shrink-0 items-center rounded-md transition-opacity duration-150 hover:opacity-90 active:opacity-80 active:transition-none', extra]}
     >
       <img src={badges.src} alt={badges.alt} class={badges.img} decoding="async" />
     </a>

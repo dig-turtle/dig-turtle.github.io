@@ -1,0 +1,21 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+}
+
+const { label, href } = Astro.props;
+const base = 'rounded-xs border border-hairline bg-surface-card px-2 py-1 text-xs leading-[1.5]';
+---
+
+{
+  href ? (
+    <a data-chip href={href} class={`${base} text-body! no-underline! ring-accent hover:text-ink!`}>
+      {label}
+    </a>
+  ) : (
+    <span data-chip class={`${base} text-body`}>
+      {label}
+    </span>
+  )
+}
