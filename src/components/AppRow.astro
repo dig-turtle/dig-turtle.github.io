@@ -14,7 +14,7 @@ const { app } = Astro.props;
 
 <li
   data-app={app.name}
-  class="group flex flex-col gap-4 px-4 py-4 transition-colors duration-150 hover:bg-accent-from/6 has-[:focus-visible]:bg-accent-from/6 active:bg-accent-from/6 active:transition-none md:flex-row md:items-center md:gap-5"
+  class="group relative flex flex-col gap-4 px-4 py-4 transition-colors duration-150 hover:bg-accent-from/6 has-[:focus-visible]:bg-accent-from/6 active:bg-accent-from/6 active:transition-none md:flex-row md:items-center md:gap-5"
 >
   <div class="flex min-w-0 flex-1 items-center gap-4">
     <div
@@ -26,18 +26,12 @@ const { app } = Astro.props;
 
     <div class="min-w-0">
       <h3 class="text-lg leading-[1.4] font-medium tracking-[0.2px] text-ink">
-        {
-          app.page ? (
-            <a
-              href={app.page}
-              class="ring-accent -mx-1 rounded-xs px-1 underline decoration-ash decoration-1 underline-offset-4 transition-colors duration-150 hover:decoration-ink"
-            >
-              {app.name}
-            </a>
-          ) : (
-            app.name
-          )
-        }
+        <a
+          href={app.page}
+          class="ring-accent -mx-1 rounded-xs px-1 underline decoration-ash decoration-1 underline-offset-4 transition-colors duration-150 after:absolute after:inset-0 after:content-[''] hover:decoration-ink"
+        >
+          {app.name}
+        </a>
       </h3>
       <p class="mt-0.5 text-sm leading-[1.6] text-mute">{app.description}</p>
     </div>
@@ -49,7 +43,7 @@ const { app } = Astro.props;
       class="hidden text-lg text-ash transition-colors duration-150 group-hover:text-accent-from group-has-[:focus-visible]:text-accent-from group-active:text-accent-from group-active:transition-none md:inline"
       >→</span
     >
-    <div class="flex flex-wrap items-start gap-3">
+    <div class="relative z-10 flex flex-wrap items-start gap-3">
       <StoreBadge store="android" link={app.stores.android} label={`Get ${app.name} on Google Play`} />
       <StoreBadge store="ios" link={app.stores.ios} label={`Download ${app.name} on the App Store`} />
     </div>

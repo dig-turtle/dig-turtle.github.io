@@ -304,11 +304,14 @@ The shared page shell. Header with the brand **"Made With Pixels"** in the accen
 
 ### AppRow
 One app in the catalog list. Rows stack inside an `app-list` panel (`bg-surface border border-hairline rounded-lg`), separated by hairline dividers.
-- **Contents:** icon tile, app name (`{colors.ink}`), one-line description (`{colors.mute}`), and the app's own store badges. An app with its own page links its name there, with a quiet always-on underline (`decoration-ash`, brightening to ink on hover) so phone visitors can tell it's a link. The row itself is not one big link, since it contains badge links. Each live badge link gets an accessible name that includes the app ("Get EzCamel on Google Play"), so a screen reader's links list isn't a column of identical names.
+- **Contents:** icon tile, app name (`{colors.ink}`), one-line description (`{colors.mute}`), and the app's own store badges. Every app has an about page, and the name links to it with a quiet always-on underline (`decoration-ash`, brightening to ink on hover) so phone visitors can tell it's a link. The whole row is a stretched link: the name link's `::after` (`after:absolute after:inset-0`, with the `<li>` `relative`) covers the row, so a tap anywhere opens the app's page. The badge group sits above it (`relative z-10`), so badge taps go to the store. Each live badge link gets an accessible name that includes the app ("Get EzCamel on Google Play"), so a screen reader's links list isn't a column of identical names.
 - **Icon tile:** 48px, `{rounded.md}`, `{colors.surface-card}` with a hairline border. Without a real icon it shows the app's first letter in `{colors.mute}`; a real icon image fills the tile when one exists.
 - **Neon state:** on `hover`, keyboard focus inside the row (`:has(:focus-visible)`) and `:active` (tap), the row gets a faint magenta wash (accent-from at ~6%), the icon tile turns into the accent gradient with a magenta glow, and the arrow turns `{colors.accent-from}`. Tap must visibly flash even when it navigates away. Use Tailwind's `hover:` (it is gated to hover-capable devices), `has-[:focus-visible]:` (with `group-has-[:focus-visible]:` on the tile and arrow) and `active:`. Don't use `focus-within:`: browsers focus a link on tap, so the row would stay lit after a visitor taps a badge and comes back.
 - **Never permanent.** No row is lit by default, and there is no `featured` flag.
 - Transitions are short (~150ms) and disappear under `prefers-reduced-motion: reduce`.
+
+### AppLayout
+The about page for one app, driven by `src/data/apps.ts`: the Layout shell with an "An app by Made With Pixels" eyebrow, the app name in `text-gradient-accent`, its description, a card with the about text and store badges, and a link and data-use chips pointing into the unified privacy policy. Home rows link here.
 
 ### StoreBadge
 One store (Google Play or App Store) for one app. Status is set per store, per app.

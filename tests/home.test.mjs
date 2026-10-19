@@ -110,9 +110,35 @@ test('live badge links name their app', () => {
   }
 });
 
-test('rows with a page show a persistent link cue', () => {
-  const row = rows.find((r) => rowName(r) === 'Lodestra');
-  const link = row.match(/<a\b[^>]*href="\/lodestra"[^>]*>/)?.[0] ?? '';
-  const classes = (link.match(/class="([^"]*)"/)?.[1] ?? '').split(/\s+/);
-  assert.ok(classes.includes('underline'), `no always-on underline: ${link}`);
+const PATHS = {
+  'Skip The Paywall': '/skip-the-paywall',
+  EzCamel: '/ezcamel',
+  'Clash of Cards: War': '/clash-of-cards-war',
+  Lodestra: '/lodestra',
+};
+const nameLink = (row) => row.match(new RegExp(`<a\\b[^>]*href="${PATHS[rowName(row)]}"[^>]*>`))?.[0] ?? '';
+const classesOf = (tag) => (tag.match(/class="([^"]*)"/)?.[1] ?? '').split(/\s+/);
+
+test('every row shows a persistent link cue', () => {
+  for (const row of rows) {
+    assert.ok(classesOf(nameLink(row)).includes('underline'), `no always-on underline: ${rowName(row)}`);
+  }
+});
+
+test('every row links its name to its about page with a stretched link', () => {
+  for (const row of rows) {
+    const link = nameLink(row);
+    assert.ok(link, `no about link: ${rowName(row)}`);
+    const c = classesOf(link);
+    assert.ok(c.includes('after:absolute') && c.includes('after:inset-0'), `not stretched: ${rowName(row)}`);
+    assert.ok(classesOf(row.match(/<li\b[^>]*>/)[0]).includes('relative'), `li not relative: ${rowName(row)}`);
+  }
+});
+
+test('badges sit above the stretched link', () => {
+  for (const row of rows) {
+    const wrappers = [...row.matchAll(/<div\b[^>]*class="([^"]*)"[^>]*>\s*(?:<a\b|<span\b[^>]*data-coming-soon|<div\b[^>]*>\s*<(?:a|span)\b)/g)];
+    const ok = wrappers.some((m) => m[1].split(/\s+/).includes('relative') && m[1].split(/\s+/).includes('z-10'));
+    assert.ok(ok, `badge wrapper not raised: ${rowName(row)}`);
+  }
 });
