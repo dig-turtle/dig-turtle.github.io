@@ -51,8 +51,8 @@ const chipsFor = (use: DataUse) =>
       Uninstalling an app deletes its data from your device.
     </p>
     <p>
-      When you share a link to one of our apps, it opens that link on the site you choose,
-      and that site's own privacy policy applies.
+      Skip The Paywall and EzCamel open links you share with them on another site (the paywall-removal site you
+      pick, or camelcamelcamel). That site's own privacy policy applies.
     </p>
   </section>
 
@@ -65,7 +65,8 @@ const chipsFor = (use: DataUse) =>
       you interact with ads.
     </p>
     <p>
-      If you are in the EEA or the UK, the app asks for your consent before it shows ads. You can reset or delete your
+      If you are in the EEA or the UK, the app asks whether Google may use your data for personalised ads. If you decline, you may still see ads that
+      aren't personalised. You can reset or delete your
       advertising ID at any time in your Android settings.
     </p>
     <p>Ads in Lodestra are never targeted using the contents of your trips or your Google Drive data.</p>
@@ -80,7 +81,7 @@ const chipsFor = (use: DataUse) =>
     <h2 id="analytics">Analytics</h2>
     <div class="flex flex-wrap gap-2">{chipsFor('analytics').map((chip) => <Chip {...chip} />)}</div>
     <p>
-      The app sends usage events to PostHog so we can see what works and fix what breaks. These events are the screens
+      Lodestra sends usage events to PostHog so we can see what works and fix what breaks. These events are the screens
       you view, the features you use, crashes and errors, the app version, and your device model and OS version.
     </p>
     <p>
@@ -97,7 +98,7 @@ const chipsFor = (use: DataUse) =>
     <h2 id="google-drive">Google Sign-In and Google Drive</h2>
     <div class="flex flex-wrap gap-2">{chipsFor('drive').map((chip) => <Chip {...chip} />)}</div>
     <p>
-      Lodestra keeps your trips in your own Google Drive, not on a server of ours. It's your Drive, and you're in control
+      When you turn on backup or share a trip, Lodestra keeps your trips in your own Google Drive, not on a server of ours. It's your Drive, and you're in control
       of that data.
     </p>
     <p>
@@ -116,8 +117,8 @@ const chipsFor = (use: DataUse) =>
     </ul>
     <p>
       This data goes directly between your device and Google; we never receive it. Google's handling of it is covered by
-      the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. Lodestra's use of information received
-      from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy"
+      the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. Lodestra's use and transfer to any other app of
+      information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy"
         >Google API Services User Data Policy</a
       >, including the Limited Use requirements. Your Drive data is never used for ads or analytics.
     </p>

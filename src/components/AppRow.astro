@@ -43,9 +43,9 @@ const { app } = Astro.props;
       class="hidden text-lg text-ash transition-colors duration-150 group-hover:text-accent-from group-has-[:focus-visible]:text-accent-from group-active:text-accent-from group-active:transition-none md:inline"
       >→</span
     >
-    <div class="relative z-10 flex flex-wrap items-start gap-3">
-      <StoreBadge store="android" link={app.stores.android} label={`Get ${app.name} on Google Play`} />
-      <StoreBadge store="ios" link={app.stores.ios} label={`Download ${app.name} on the App Store`} />
+    <div class="pointer-events-none flex flex-wrap items-start gap-3">
+      <StoreBadge store="android" link={app.stores.android} label={`Get ${app.name} on Google Play`} class="pointer-events-auto relative z-10" />
+      <StoreBadge store="ios" link={app.stores.ios} label={`Download ${app.name} on the App Store`} class="pointer-events-auto relative z-10" />
     </div>
   </div>
 </li>

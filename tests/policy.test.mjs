@@ -58,9 +58,9 @@ test('drive section keeps the Google API commitments', () => {
   }
 });
 
-test('shared links open on the site you choose', () => {
+test('shared links open on another site', () => {
   const s = section('on-device');
-  assert.match(s, /site you choose/);
+  assert.match(s, /Skip The Paywall and EzCamel/);
   assert.match(s, /privacy policy applies/);
 });
 
