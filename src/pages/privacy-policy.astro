@@ -3,7 +3,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 import Chip from '../components/Chip.astro';
 import { apps, appsUsing, dataUseInfo, type DataUse } from '../data/apps';
 
-const uses: DataUse[] = ['device', 'ads', 'analytics', 'drive'];
+const uses: DataUse[] = ['device', 'ads', 'analytics', 'drive', 'location'];
 
 /**
  * The chips under a data-use heading, each linking to its app's page. "On your device" collapses to one
@@ -17,7 +17,7 @@ const chipsFor = (use: DataUse) =>
 
 <LegalLayout
   title="Privacy Policy - Made With Pixels, LLC"
-  description="Privacy Policy for every Made With Pixels, LLC app: what stays on your device, ads, analytics and Google Drive."
+  description="Privacy Policy for every Made With Pixels, LLC app: what stays on your device, ads, analytics, Google Drive and place lookups."
   heading="Privacy Policy"
   updated="October 2026"
 >
@@ -137,6 +137,21 @@ const chipsFor = (use: DataUse) =>
       Trip files in the <em>Lodestra</em> folder of your Drive can be deleted like any other file. You can remove
       Lodestra's access to your Google account at
       <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="place-lookups">Place Lookups</h2>
+    <div class="flex flex-wrap gap-2">{chipsFor('location').map((chip) => <Chip {...chip} />)}</div>
+    <p>
+      When you enter a location for a stay or activity, Lodestra sends the address text you typed to Google, through your
+      phone's built-in location service (Google Play services), to find the time zone there. Nothing is sent until you
+      enter a location.
+    </p>
+    <p>
+      Lodestra keeps only the resulting time zone, not the coordinates. No API key and no server of ours is involved;
+      the lookup goes directly between your device and Google. Google's handling of it is covered by the
+      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
     </p>
   </section>
 
