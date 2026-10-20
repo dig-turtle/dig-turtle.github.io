@@ -144,14 +144,14 @@ const chipsFor = (use: DataUse) =>
     <h2 id="place-lookups">Place Lookups</h2>
     <div class="flex flex-wrap gap-2">{chipsFor('location').map((chip) => <Chip {...chip} />)}</div>
     <p>
-      When you enter a location for a stay or activity, Lodestra sends the address text you typed to Google, through your
-      phone's built-in location service (Google Play services), to find the time zone there. Nothing is sent until you
+      When you enter a location for a stay or activity, Lodestra sends the address text you typed to your phone's built-in geocoding
+      service (on most Android phones, this is Google's), to find the time zone there. Nothing is sent until you
       enter a location.
     </p>
     <p>
       Lodestra keeps only the resulting time zone, not the coordinates. No API key and no server of ours is involved;
-      the lookup goes directly between your device and Google. Google's handling of it is covered by the
-      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
+      the lookup goes between your device and whatever geocoding service your phone provides. If that service is Google's,
+      its handling of the text is covered by the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
     </p>
   </section>
 
