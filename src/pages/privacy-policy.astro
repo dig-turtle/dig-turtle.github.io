@@ -126,9 +126,14 @@ const chipsFor = (use: DataUse) =>
     <h3>Sharing a Trip</h3>
     <p>
       When you share a trip, Lodestra uses Google Drive to give the people you choose access to that trip's file, as a
-      viewer or an editor. Their email address is used only to grant that access. The invite link you send contains the
-      trip's name and your display name, which anyone you send it to can read. The link alone does not give access to
-      the trip.
+      viewer or an editor. In Google Drive, viewers are added as commenters, so that they can ask for edit access from
+      Lodestra. Their email address is used only to grant that access. The invite link you send contains the trip's name
+      and your display name, which anyone you send it to can read. The link alone does not give access to the trip.
+    </p>
+    <p>
+      If a viewer asks for edit access in Lodestra, Lodestra adds a comment to that trip's Drive file with their Google
+      account email address and a short note. Everyone with access to the trip can see it. When the trip's owner approves
+      or declines in Lodestra, the comment is marked resolved.
     </p>
 
     <h3>Deleting Your Drive Data</h3>
