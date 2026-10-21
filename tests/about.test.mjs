@@ -11,7 +11,7 @@ const PAGES = {
   },
   Lodestra: {
     path: '/lodestra',
-    uses: ['on-device', 'ads', 'analytics', 'google-drive'],
+    uses: ['on-device', 'ads', 'analytics', 'google-drive', 'place-lookups'],
   },
 };
 
