@@ -149,14 +149,25 @@ const chipsFor = (use: DataUse) =>
     <h2 id="place-lookups">Place Lookups</h2>
     <div class="flex flex-wrap gap-2">{chipsFor('location').map((chip) => <Chip {...chip} />)}</div>
     <p>
-      When you enter a location for a stay or activity, Lodestra sends the address text you typed to your phone's built-in geocoding
-      service (on most Android phones, this is Google's), to find the time zone there. Nothing is sent until you
-      enter a location.
+      When you enter a place in Lodestra (a stay's or activity's address, a restaurant's address or name, a car's pick-up or
+      drop-off, or a train or bus station), Lodestra sends the place text you typed to your phone's built-in geocoding
+      service (on most Android phones, this is Google's) to find where it is and its time zone. Nothing is sent until you
+      enter a place. Airport codes, including every flight's airports, are looked up in a table built into the app and send
+      nothing.
     </p>
     <p>
-      Lodestra keeps only the resulting time zone, not the coordinates. No API key and no server of ours is involved;
-      the lookup goes between your device and whatever geocoding service your phone provides. If that service is Google's,
-      its handling of the text is covered by the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
+      Only the phone that saved the place sends it. If that phone is offline, Lodestra tries again in the background a few
+      times. It doesn't send places during sync, and other people's phones never look up the places you enter.
+    </p>
+    <p>
+      Lodestra keeps the time zone and the point (latitude and longitude) that the lookup found. They're stored with the
+      item on your device and in the trip's file in Google Drive, so everyone the trip is shared with can see them. The point
+      is used to open your maps app at that place when you tap Directions.
+    </p>
+    <p>
+      No API key and no server of ours is involved; the lookup goes between your device and whatever geocoding service your
+      phone provides. If that service is Google's, its handling of the text is covered by the
+      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
     </p>
   </section>
 

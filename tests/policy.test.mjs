@@ -61,7 +61,7 @@ test('drive section keeps the Google API commitments', () => {
 
 test('place lookups section says what is sent and kept', () => {
   const s = strip(section('place-lookups'));
-  for (const t of ['address text', 'built-in geocoding service', 'only the resulting time zone', 'No API key']) {
+  for (const t of ['place text', 'built-in geocoding service', 'station', 'the time zone and the point', "trip's file in Google Drive", 'never look up', 'No API key']) {
     assert.ok(s.includes(t), t);
   }
 });
