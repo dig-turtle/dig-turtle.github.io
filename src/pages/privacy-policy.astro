@@ -3,7 +3,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 import Chip from '../components/Chip.astro';
 import { apps, appsUsing, dataUseInfo, type DataUse } from '../data/apps';
 
-const uses: DataUse[] = ['device', 'ads', 'analytics', 'drive'];
+const uses: DataUse[] = ['device', 'ads', 'analytics', 'drive', 'location'];
 
 /**
  * The chips under a data-use heading, each linking to its app's page. "On your device" collapses to one
@@ -17,7 +17,7 @@ const chipsFor = (use: DataUse) =>
 
 <LegalLayout
   title="Privacy Policy - Made With Pixels, LLC"
-  description="Privacy Policy for every Made With Pixels, LLC app: what stays on your device, ads, analytics and Google Drive."
+  description="Privacy Policy for every Made With Pixels, LLC app: what stays on your device, ads, analytics, Google Drive and place lookups."
   heading="Privacy Policy"
   updated="October 2026"
 >
@@ -126,9 +126,14 @@ const chipsFor = (use: DataUse) =>
     <h3>Sharing a Trip</h3>
     <p>
       When you share a trip, Lodestra uses Google Drive to give the people you choose access to that trip's file, as a
-      viewer or an editor. Their email address is used only to grant that access. The invite link you send contains the
-      trip's name and your display name, which anyone you send it to can read. The link alone does not give access to
-      the trip.
+      viewer or an editor. In Google Drive, viewers are added as commenters, so that they can ask for edit access from
+      Lodestra. Their email address is used only to grant that access. The invite link you send contains the trip's name
+      and your display name, which anyone you send it to can read. The link alone does not give access to the trip.
+    </p>
+    <p>
+      If a viewer asks for edit access in Lodestra, Lodestra adds a comment to that trip's Drive file with their Google
+      account email address and a short note. Everyone with access to the trip can see it. When the trip's owner approves
+      or declines in Lodestra, the comment is marked resolved.
     </p>
 
     <h3>Deleting Your Drive Data</h3>
@@ -137,6 +142,32 @@ const chipsFor = (use: DataUse) =>
       Trip files in the <em>Lodestra</em> folder of your Drive can be deleted like any other file. You can remove
       Lodestra's access to your Google account at
       <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="place-lookups">Place Lookups</h2>
+    <div class="flex flex-wrap gap-2">{chipsFor('location').map((chip) => <Chip {...chip} />)}</div>
+    <p>
+      When you enter a place in Lodestra (a stay's or activity's address, a restaurant's address or name, a car's pick-up or
+      drop-off, or a train or bus station), Lodestra sends the place text you typed to your phone's built-in geocoding
+      service (on most Android phones, this is Google's) to find where it is and its time zone. Nothing is sent until you
+      enter a place. Airport codes, including every flight's airports, are looked up in a table built into the app and send
+      nothing.
+    </p>
+    <p>
+      Only the phone that saved the place sends it. If that phone is offline, Lodestra tries again in the background a few
+      times. It doesn't send places during sync, and other people's phones never look up the places you enter.
+    </p>
+    <p>
+      Lodestra keeps the time zone and the point (latitude and longitude) that the lookup found. They're stored with the
+      item on your device and in the trip's file in Google Drive, so everyone the trip is shared with can see them. The point
+      is used to open your maps app at that place when you tap Directions.
+    </p>
+    <p>
+      No API key and no server of ours is involved; the lookup goes between your device and whatever geocoding service your
+      phone provides. If that service is Google's, its handling of the text is covered by the
+      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
     </p>
   </section>
 
