@@ -67,7 +67,8 @@ test('legal heading in the gradient; section h2s get the accent bar', () => {
     const html = readPage(route);
     const h1 = html.match(/<h1\b[^>]*>/)?.[0] ?? '';
     assert.match(h1, /text-gradient-accent/, `${route} h1`);
-    assert.ok(html.includes('[&_h2]:accent-bar'), `${route} h2 accent`);
+    // Astro 7 entity-encodes & in attribute values.
+    assert.match(html, /\[&(amp;)?_h2\]:accent-bar/, `${route} h2 accent`);
   }
 });
 
