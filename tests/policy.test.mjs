@@ -59,6 +59,12 @@ test('drive section keeps the Google API commitments', () => {
   }
 });
 
+test('drive section says what sign-in shares and where the email goes', () => {
+  const text = strip(section('google-drive'));
+  assert.match(text, /email address, name and account ID/);
+  assert.match(text, /saves your email address with that change/);
+});
+
 test('place lookups section says what is sent and kept', () => {
   const s = strip(section('place-lookups'));
   for (const t of ['place text', 'built-in geocoding service', 'station', 'the time zone and the point', "trip's file in Google Drive", 'never look up', 'No API key']) {
