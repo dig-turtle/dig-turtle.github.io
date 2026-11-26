@@ -9,6 +9,7 @@ const EXPECT = {
   ads: ['Skip The Paywall', 'EzCamel', 'Clash of Cards: War', 'Lodestra'],
   analytics: ['Lodestra'],
   'google-drive': ['Lodestra'],
+  'place-lookups': ['Lodestra'],
 };
 
 const strip = (s) =>
@@ -55,6 +56,19 @@ test('drive section keeps the Google API commitments', () => {
   const drive = section('google-drive');
   for (const s of ['drive.appdata', 'drive.file', 'Limited Use', 'api-services-user-data-policy', 'Sharing a Trip']) {
     assert.ok(drive.includes(s), s);
+  }
+});
+
+test('drive section says what sign-in shares and where the email goes', () => {
+  const text = strip(section('google-drive'));
+  assert.match(text, /email address, name and account ID/);
+  assert.match(text, /saves your email address with that change/);
+});
+
+test('place lookups section says what is sent and kept', () => {
+  const s = strip(section('place-lookups'));
+  for (const t of ['place text', 'built-in geocoding service', 'station', 'the time zone and the point', "trip's file in Google Drive", 'never look up', 'No API key']) {
+    assert.ok(s.includes(t), t);
   }
 });
 

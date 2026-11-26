@@ -1,13 +1,14 @@
 export type StoreLink = { status: 'live'; url: string } | { status: 'coming-soon' };
 
 /** What an app does with data. Each use links to a section of the unified privacy policy. */
-export type DataUse = 'device' | 'ads' | 'analytics' | 'drive';
+export type DataUse = 'device' | 'ads' | 'analytics' | 'drive' | 'location';
 
 export const dataUseInfo: Record<DataUse, { anchor: string; label: string }> = {
   device: { anchor: 'on-device', label: 'On your device' },
   ads: { anchor: 'ads', label: 'Ads' },
   analytics: { anchor: 'analytics', label: 'Analytics' },
   drive: { anchor: 'google-drive', label: 'Google Drive' },
+  location: { anchor: 'place-lookups', label: 'Place lookups' },
 };
 
 export interface App {
@@ -68,7 +69,7 @@ export const apps: App[] = [
     page: '/lodestra',
     about:
       "Keep flights, stays, reservations and plans for each trip in one timeline. Your trips are backed up to your own Google Drive, and you can share a trip with the people you're travelling with.",
-    dataUses: ['device', 'ads', 'analytics', 'drive'],
+    dataUses: ['device', 'ads', 'analytics', 'drive', 'location'],
     stores: { android: comingSoon, ios: comingSoon },
   },
 ];
